@@ -1,0 +1,14 @@
+@BaseClass = weapon : "A weapon"
+[
+	Name(string) : "Name" : "Weapon Name"
+	ViewModelPath(string) : "View Model Path" : ""
+	WorldModelPath(string) : "World Model Path" : ""
+	PrimaryFireSound(string) : "Primary Fire Sound" : ""
+	HoldType(int) : "Hold Type" : "0"
+	BulletsPerShot(int) : "Bullets Per Shot" : "1"
+	PrimaryFireRate(float) : "Primary Fire Rate" : "1"
+	Damage(float) : "Damage Per Bullet" : "5"
+	Knockback(float) : "Knockback Per Bullet" : "0"
+	SpreadAngle(float) : "Spread Cone Angle" : "10"
+	Range(float) : "Range" : "2000"
+]

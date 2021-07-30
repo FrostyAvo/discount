@@ -1,0 +1,17 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		Name = "Wrenchlight"
+		ViewModelPath = "weapons/rust_flashlight/v_rust_flashlight.vmdl"
+		WorldModelPath = ""
+		PrimaryFireSound = "rust_flashlight.attack"
+		HoldType = 0
+		BulletsPerShot = 1
+		PrimaryFireRate = 1.25
+		Damage = 65.0
+		Knockback = 20.0
+		SpreadAngle = 0.0
+		Range = 70.0
+	}
+}

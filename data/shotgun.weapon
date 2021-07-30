@@ -1,0 +1,17 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		Name = "Shotgun"
+		ViewModelPath = "weapons/rust_pumpshotgun/v_rust_pumpshotgun.vmdl"
+		WorldModelPath = "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl"
+		PrimaryFireSound = "rust_pumpshotgun.shoot"
+		HoldType = 3
+		BulletsPerShot = 10
+		Damage = 6.0
+		Knockback = 20.0
+		SpreadAngle = 10.0
+		Range = 2000.0
+		PrimaryFireRate = 1.6
+	}
+}

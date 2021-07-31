@@ -4,10 +4,10 @@ using Sandbox;
 
 namespace Discount
 {
-	partial class ClassPlayer : Player
+	partial class TeamPlayer : Player
 	{
 		[Net, Predicted] public int TeamIndex { get; set; }
-		public ClassPlayer() : base()
+		public TeamPlayer() : base()
 		{
 			Inventory = new BaseInventory( this );
 		}

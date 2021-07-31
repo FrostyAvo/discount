@@ -1,6 +1,8 @@
 ﻿using Discount.UI;
 
 using Sandbox;
+using System;
+using System.Linq;
 
 namespace Discount
 {
@@ -43,7 +45,7 @@ namespace Discount
 		{
 			base.ClientJoined( client );
 
-			var player = new ClassPlayer() { TeamIndex = TotalPlayersJoined % 2 };
+			var player = new TeamPlayer() { TeamIndex = TotalPlayersJoined % 2 };
 			client.Pawn = player;
 
 			TotalPlayersJoined++;
@@ -59,6 +61,30 @@ namespace Discount
 			new ClassPlayer() { TeamIndex = TotalPlayersJoined % 2 }.Respawn();
 			TotalPlayersJoined++;*/
 		}
-	}
 
+		public override void MoveToSpawnpoint( Entity pawn )
+		{
+			if (pawn is not TeamPlayer teamPlayer)
+			{
+				base.MoveToSpawnpoint( pawn );
+
+				return;
+			}
+
+			TeamSpawnPoint spawnpoint = All
+									.OfType<TeamSpawnPoint>()
+									.Where( (TeamSpawnPoint teamSpawnPoint) => { return teamSpawnPoint.TeamIndex == teamPlayer.TeamIndex; } )
+									.OrderBy( x => Guid.NewGuid() )
+									.FirstOrDefault();
+
+			if ( spawnpoint == null )
+			{
+				Log.Warning( $"Couldn't find team spawn point for {pawn}!" );
+
+				return;
+			}
+
+			pawn.Transform = spawnpoint.Transform;
+		}
+	}
 }

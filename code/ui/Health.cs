@@ -12,7 +12,7 @@ namespace Discount.UI
 		public Health()
 		{
 			HealthLabel = Add.Label( "100", "value" );
-			TeamLabel = Add.Label("", "team-label" );
+			TeamLabel = Add.Label( "", "team-label" );
 		}
 
 		public override void Tick()
@@ -26,9 +26,9 @@ namespace Discount.UI
 
 			HealthLabel.Text = $"{player.Health.CeilToInt()}";
 
-			if ( player is ClassPlayer classPlayer )
+			if ( player is TeamPlayer teamPlayer )
 			{
-				if (classPlayer.TeamIndex == 0)
+				if ( teamPlayer.TeamIndex == 0 )
 				{
 					TeamLabel.Text = "Red Team";
 					TeamLabel.Style.FontColor = new Color( 1f, 0.5f, 0.5f );

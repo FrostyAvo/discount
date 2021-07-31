@@ -68,18 +68,18 @@ namespace Discount.Weapons
 					continue;
 				}
 
-				traceResults.Current.Surface.DoBulletImpact( traceResults.Current );
-
-				// Don't damage if there's nothing to damage or if we're not the server
-				if ( !IsServer || !traceResults.Current.Entity.IsValid())
+				// Don't hurt teammates
+				if ( traceResults.Current.Entity is TeamPlayer hitTeamPlayer
+					&& Owner is TeamPlayer ownerTeamPlayer
+					&& hitTeamPlayer.TeamIndex == ownerTeamPlayer.TeamIndex )
 				{
 					continue;
 				}
 
-				// Don't hurt teammates
-				if ( traceResults.Current.Entity is ClassPlayer hitClassPlayer
-					&& Owner is ClassPlayer ownerClassPlayer
-					&& hitClassPlayer.TeamIndex == ownerClassPlayer.TeamIndex)
+				traceResults.Current.Surface.DoBulletImpact( traceResults.Current );
+
+				// Don't damage if there's nothing to damage or if we're not the server
+				if ( !IsServer || !traceResults.Current.Entity.IsValid())
 				{
 					continue;
 				}
@@ -90,7 +90,7 @@ namespace Discount.Weapons
 						DamageInfo.FromBullet(
 							traceResults.Current.EndPos,
 							pelletDirection * Data.Knockback,
-							Data.Damage ) );
+							Data.Damage ).WithAttacker( Owner, this ) );
 				}
 			}
 		}

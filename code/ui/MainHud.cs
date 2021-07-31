@@ -15,7 +15,7 @@ namespace Discount.UI
 
 			RootPanel.StyleSheet.Load( "/ui/MainHud.scss" );
 
-			//RootPanel.AddChild<TeamNameTags>();
+			RootPanel.AddChild<TeamNameTags>();
 			RootPanel.AddChild<CrosshairCanvas>();
 			RootPanel.AddChild<ChatBox>();
 			RootPanel.AddChild<VoiceList>();

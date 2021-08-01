@@ -112,6 +112,12 @@ namespace Discount
 				return;
 			}
 
+			// Bot clients have a fake SteamID with the Steam account type set to 4 (AnonGameServer)
+			if ( ((target.SteamId >> 52) & 0b1111) == 4 )
+			{
+				return;
+			}
+
 			if ( Current.IsServer )
 			{
 				ActiveHud = new TeamSelectionUi();

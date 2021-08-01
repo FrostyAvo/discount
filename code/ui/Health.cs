@@ -12,7 +12,8 @@ namespace Discount.UI
 		public Health()
 		{
 			HealthLabel = Add.Label( "100", "value" );
-			TeamLabel = Add.Label( "", "team-label" );
+			TeamLabel = Add.Label( "", "team-name" );
+			Add.Label( "F To Change", "team-change-hint" );
 		}
 
 		public override void Tick()
@@ -28,15 +29,30 @@ namespace Discount.UI
 
 			if ( player is TeamPlayer teamPlayer )
 			{
-				if ( teamPlayer.TeamIndex == 0 )
+				switch ( teamPlayer.TeamIndex )
 				{
-					TeamLabel.Text = "Red Team";
-					TeamLabel.Style.FontColor = new Color( 1f, 0.5f, 0.5f );
-				}
-				else
-				{
-					TeamLabel.Text = "Blue Team";
-					TeamLabel.Style.FontColor = new Color( 0.5f, 0.5f, 1f );
+					case 0:
+						TeamLabel.Text = "Unassigned";
+						TeamLabel.Style.FontColor = Color.White;
+						break;
+
+					case 1:
+						TeamLabel.Text = "Spectator";
+						TeamLabel.Style.FontColor = Color.White;
+						break;
+
+					case 2:
+						TeamLabel.Text = "Red Team";
+						TeamLabel.Style.FontColor = new Color( 1f, 0.5f, 0.5f );
+						break;
+
+					case 3:
+						TeamLabel.Text = "Blue Team";
+						TeamLabel.Style.FontColor = new Color( 0.5f, 0.5f, 1f );
+						break;
+
+					default:
+						break;
 				}
 			}
 			else

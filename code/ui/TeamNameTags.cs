@@ -47,7 +47,7 @@ namespace Discount.UI
 
 		public TeamNameTags()
 		{
-			StyleSheet.Load( "/ui/nametags/NameTags.scss" );
+			StyleSheet.Load( "/ui/TeamNameTags.scss" );
 		}
 
 		public override void Tick()
@@ -103,11 +103,16 @@ namespace Discount.UI
 				return false;
 			}
 
+			// If the local player is in a team, don't draw enemy name tags
+			if ( Local.Pawn is TeamPlayer localPlayer && ( player is not TeamPlayer teamPlayer || localPlayer.TeamIndex != teamPlayer.TeamIndex ) )
+			{
+				return false;
+			}
+
 			//
 			// Where we putting the label, in world coords
 			//
-			Transform head = player.GetAttachment( "hat" ) ?? new Transform( player.EyePos );
-
+			Transform head = new Transform( player.EyePos );
 			Vector3 labelPos = head.Position + head.Rotation.Up * 5;
 
 			//

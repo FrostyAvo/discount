@@ -6,14 +6,15 @@ namespace Discount.UI
 {
 	public class InventoryBar : Panel
 	{
-		readonly List<InventoryIcon> slots = new List<InventoryIcon>();
+		protected readonly int slotCount_ = 5;
+		protected readonly List<InventoryIcon> slots_ = new List<InventoryIcon>();
 
 		public InventoryBar()
 		{
-			for ( int i = 0; i < 9; i++ )
+			for ( int i = 0; i < slotCount_; i++ )
 			{
 				InventoryIcon icon = new InventoryIcon( i + 1, this );
-				slots.Add( icon );
+				slots_.Add( icon );
 			}
 		}
 
@@ -28,9 +29,9 @@ namespace Discount.UI
 				return;
 			}
 
-			for ( int i = 0; i < slots.Count; i++ )
+			for ( int i = 0; i < slots_.Count; i++ )
 			{
-				UpdateIcon( player.Inventory.GetSlot( i ), slots[i], i );
+				UpdateIcon( player.Inventory.GetSlot( i ), slots_[i], i );
 			}
 		}
 
@@ -69,10 +70,10 @@ namespace Discount.UI
 			if ( input.Pressed( InputButton.Slot3 ) ) SetActiveSlot( input, inventory, 2 );
 			if ( input.Pressed( InputButton.Slot4 ) ) SetActiveSlot( input, inventory, 3 );
 			if ( input.Pressed( InputButton.Slot5 ) ) SetActiveSlot( input, inventory, 4 );
-			if ( input.Pressed( InputButton.Slot6 ) ) SetActiveSlot( input, inventory, 5 );
+			/*if ( input.Pressed( InputButton.Slot6 ) ) SetActiveSlot( input, inventory, 5 );
 			if ( input.Pressed( InputButton.Slot7 ) ) SetActiveSlot( input, inventory, 6 );
 			if ( input.Pressed( InputButton.Slot8 ) ) SetActiveSlot( input, inventory, 7 );
-			if ( input.Pressed( InputButton.Slot9 ) ) SetActiveSlot( input, inventory, 8 );
+			if ( input.Pressed( InputButton.Slot9 ) ) SetActiveSlot( input, inventory, 8 );*/
 
 			if ( input.MouseWheel != 0 ) SwitchActiveSlot( input, inventory, -input.MouseWheel );
 		}

@@ -16,11 +16,6 @@ namespace Discount
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
 
-			Wear( "models/citizen_clothes/hat/hat_hardhat.vmdl" );
-			Wear( "models/citizen_clothes/shoes/shoes.police.vmdl" );
-			Wear( TeamIndex == 0 ? "models/citizen_clothes/trousers/trousers.smarttan.vmdl" : "models/citizen_clothes/trousers/trousers.police.vmdl" );
-			Wear( TeamIndex == 0 ? "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl" : "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl" );
-
 			Controller = new WalkController();
 			Animator = new StandardPlayerAnimator();
 			Camera = new FirstPersonCamera();
@@ -29,6 +24,15 @@ namespace Discount
 			EnableDrawing = true;
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
+
+			Wear( "models/citizen_clothes/hat/hat_hardhat.vmdl" );
+			Wear( "models/citizen_clothes/shoes/shoes.police.vmdl" );
+			Wear( TeamIndex == 2 ? "models/citizen_clothes/trousers/trousers.smarttan.vmdl" : "models/citizen_clothes/trousers/trousers.police.vmdl" );
+			Wear( TeamIndex == 2 ? "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl" : "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl" );
+
+			SetBodyGroup( "Legs", 1 );
+			SetBodyGroup( "Chest", 1 );
+			SetBodyGroup( "Feet", 1 );
 
 			Inventory.Add( new HitscanWeapon( "shotgun" ), true );
 			Inventory.Add( new HitscanWeapon( "pistol" ) );
@@ -72,9 +76,9 @@ namespace Discount
 				}
 			}
 
-			if( Input.Pressed( InputButton.Drop ) )
+			if ( Input.Pressed( InputButton.Flashlight ) )
 			{
-				TakeDamage( DamageInfo.Generic( 1000f ) );
+				DiscountGame.ChangeTeam( cl );
 			}
 		}
 
@@ -96,11 +100,12 @@ namespace Discount
 		public void Wear(string model)
 		{
 			ModelEntity wornEntity = new ModelEntity();
-			wornEntity.SetModel(model);
-			wornEntity.SetParent(this, true);
 
-			wornEntity.EnableHideInFirstPerson = true;
+			wornEntity.SetModel( model );
+			wornEntity.SetParent( this, true );
+
 			wornEntity.EnableShadowInFirstPerson = true;
+			wornEntity.EnableHideInFirstPerson = true;
 		}
 
 		public override void TakeDamage( DamageInfo info )

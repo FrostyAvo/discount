@@ -1,6 +1,8 @@
 ﻿using Discount.UI;
 
 using Sandbox;
+using Sandbox.UI;
+
 using System;
 using System.Linq;
 
@@ -19,22 +21,31 @@ namespace Discount
 	[Library( "discount" )]
 	public partial class DiscountGame : Game
 	{
-		// Used to assign players evenly to teams, will be replaced later
-		[Net, Predicted]
-		public int TotalPlayersJoined { get; set; } = 0;
+		protected static HudEntity<RootPanel> activeHud_;
+
+		protected static HudEntity<RootPanel> ActiveHud
+		{
+			get
+			{
+				return activeHud_;
+			}
+
+			set
+			{
+				if (activeHud_ != null)
+				{
+					activeHud_.Delete();
+				}
+
+				activeHud_ = value;
+			}
+		}
 
 		public DiscountGame()
 		{
 			if ( IsServer )
 			{
-				Log.Info( "Discount Has Created Serverside!" );
-
-				new MainHud();
-			}
-
-			if ( IsClient )
-			{
-				Log.Info( "Discount Has Created Clientside!" );
+				ActiveHud = new TeamSelectionUi();
 			}
 		}
 
@@ -45,21 +56,20 @@ namespace Discount
 		{
 			base.ClientJoined( client );
 
-			var player = new TeamPlayer() { TeamIndex = TotalPlayersJoined % 2 };
-			client.Pawn = player;
+			// Bot clients have a fake SteamID with the Steam account type set to 4 (AnonGameServer)
+			if ( ((client.SteamId >> 52) & 0b1111) == 4 )
+			{
+				// Make bots automatically join a team since they can't navigate the team selection UI
+				Player player = new TeamPlayer() { TeamIndex = Rand.Int( 2, 3 ) };
 
-			TotalPlayersJoined++;
+				client.Pawn = player;
 
-			player.Respawn();
+				player.Respawn();
 
-			/*new ClassPlayer() { TeamIndex = TotalPlayersJoined % 2 }.Respawn();
-			TotalPlayersJoined++;
-			new ClassPlayer() { TeamIndex = TotalPlayersJoined % 2 }.Respawn();
-			TotalPlayersJoined++;
-			new ClassPlayer() { TeamIndex = TotalPlayersJoined % 2 }.Respawn();
-			TotalPlayersJoined++;
-			new ClassPlayer() { TeamIndex = TotalPlayersJoined % 2 }.Respawn();
-			TotalPlayersJoined++;*/
+				return;
+			}
+
+			ChangeTeam(client);
 		}
 
 		public override void MoveToSpawnpoint( Entity pawn )
@@ -81,10 +91,87 @@ namespace Discount
 			{
 				Log.Warning( $"Couldn't find team spawn point for {pawn}!" );
 
+				base.MoveToSpawnpoint( pawn );
+
 				return;
 			}
 
 			pawn.Transform = spawnpoint.Transform;
+		}
+
+		[ServerCmd( "changeteam", Help = "Opens the team selection menu" )]
+		public static void ChangeTeamCommand()
+		{
+			ChangeTeam(ConsoleSystem.Caller);
+		}
+
+		public static void ChangeTeam(Client target)
+		{
+			if ( target == null )
+			{
+				return;
+			}
+
+			if ( Current.IsServer )
+			{
+				ActiveHud = new TeamSelectionUi();
+				target.Pawn?.Delete();
+			}
+
+			target.Pawn = new SpectatorPlayer();
+
+			if ( Current.IsServer )
+			{
+				(target.Pawn as Player).Respawn();
+			}
+		}
+
+		[ServerCmd( "jointeam", Help = "Joins the given team (red, blue, auto or spectator)" )]
+		public static void JoinTeamCommand(string teamName)
+		{
+			Client target = ConsoleSystem.Caller;
+
+			if ( target == null )
+			{
+				return;
+			}
+
+			int teamIndex;
+
+			switch ( teamName )
+			{
+				case "red":
+					teamIndex = 2;
+					break;
+
+				case "blue":
+					teamIndex = 3;
+					break;
+
+				case "auto":
+					teamIndex = Rand.Int(2, 3);
+					break;
+
+				case "spectator":
+					teamIndex = 1;
+					break;
+
+				default:
+					return;
+			}
+
+			if ( Current.IsServer )
+			{
+				ActiveHud = new MainHud();
+				target.Pawn?.Delete();
+			}
+
+			target.Pawn = teamIndex == 1 ? new SpectatorPlayer() : new TeamPlayer() { TeamIndex = teamIndex };
+
+			if ( Current.IsServer )
+			{
+				(target.Pawn as Player).Respawn();
+			}
 		}
 	}
 }

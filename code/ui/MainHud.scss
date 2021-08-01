@@ -8,21 +8,39 @@ Health
 	font-weight: bold;
 	color: white;
 	height: 80px;
-	padding: 0 20px;
+	width: 80px;
+	justify-content: center;
 	align-items: center;
+	text-align: center;
+	padding: 0 10px;
 	
-	.team-label
+	.team-name
 	{
 		padding: 5px;
 		color: white;
-		background-color: rgba( black, 0.5 );
-		text-align: center;
-		left: 95px;
 		height: 80px;
+		width: 210px;
+		left: 90px;
+		background-color: rgba( black, 0.5 );
 		font-size: 40px;
-		position: absolute;
-		padding: 0 20px;
+		padding: 0 5px;
 		align-items: center;
+		position: absolute;
+	}
+		
+	.team-change-hint
+	{
+		padding: 5px;
+		color: rgba( #CCC, 1 );
+		height: 60px;
+		width: 80px;
+		left: 310px;
+		background-color: rgba( black, 0.5 );
+		font-size: 20px;
+		padding: 0 5px;
+		align-items: center;
+		text-align: center;
+		position: absolute;
 	}
 }
 
@@ -81,7 +99,7 @@ InventoryIcon
 
 	&.active
 	{
-		background-color: rgba( #0094ff, 0.5 );
+		background-color: rgba( #ff9400, 0.5 );
 		transition: all 0.1s ease-out;
 		width: 100px;
 		height: 100px;

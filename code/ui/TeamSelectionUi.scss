@@ -1,0 +1,48 @@
+rootpanel
+{
+	background-color: rgba( #111, 0.6 );
+	pointer-events: all;
+	
+	.buttons
+	{
+		position: absolute;
+
+		width: 100%;
+		
+		top: 0px;
+		right: 0px;
+		left: 0px;
+		bottom: 20%;
+		
+		justify-content: center;
+		align-items: flex-end;
+	}
+}
+
+TeamSelectButton
+{
+	position: relative;
+	margin: 0px 5px;
+	
+	width: 300px;
+	height: 80%;
+	
+	background-color: rgba( #888, 1 );
+	
+	align-items: center;
+	justify-content: center;
+	
+	transition: all 0.1s ease-in-out;
+	
+	.label
+	{
+		font-size: 30px;
+		font-weight: bold;
+		color: white;
+		text-align: center;
+		bottom: 0px;
+		position: absolute;
+		padding: 35px 0px;
+		text-shadow: 1px 1px 5px black;
+	}
+}

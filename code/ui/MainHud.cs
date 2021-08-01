@@ -25,5 +25,6 @@ namespace Discount.UI
 			RootPanel.AddChild<InventoryBar>();
 		}
 	}
+
 }
 

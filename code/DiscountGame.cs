@@ -179,5 +179,18 @@ namespace Discount
 				(target.Pawn as Player).Respawn();
 			}
 		}
+
+		[ServerCmd( "noclip", Help = "Turns on noclip mode, which makes you non solid and lets you fly around" )]
+		public new static void NoclipCommand()
+		{
+			
+		}
+
+
+		[ServerCmd( "devcam", Help = "Enables the devcam. Input to the player will stop and you'll be able to freefly around." )]
+		public new static void DevcamCommand()
+		{
+			
+		}
 	}
 }

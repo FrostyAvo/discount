@@ -4,7 +4,7 @@
 	{
 		Name = "Wrenchlight"
 		ViewModelPath = "weapons/rust_flashlight/v_rust_flashlight.vmdl"
-		WorldModelPath = ""
+		WorldModelPath = "weapons/rust_pistol/rust_pistol.vmdl"
 		PrimaryFireSound = "rust_flashlight.attack"
 		HoldType = 0
 		BulletsPerShot = 1

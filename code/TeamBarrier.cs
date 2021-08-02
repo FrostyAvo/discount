@@ -7,7 +7,7 @@ namespace Discount
 	class TeamBarrier : ModelEntity
 	{
 		[Property( Title = "Team" )]
-		public int TeamIndex { get; set; } = 0;
+		public int TeamIndex { get; protected set; } = 0;
 
 		public override void Spawn()
 		{
@@ -17,8 +17,20 @@ namespace Discount
 			CollisionGroup = CollisionGroup.Trigger;
 			EnableSolidCollisions = false;
 			EnableTouch = true;
+			EnableDrawing = true;
 
-			Transmit = TransmitType.Never;
+			if ( TeamIndex == 2 )
+			{
+				RenderColor = new Color32( 255, 128, 128, 255 );
+			}
+			else if ( TeamIndex == 3 )
+			{
+				RenderColor = new Color32( 128, 128, 255, 255 );
+			}
+			else
+			{
+				RenderColor = new Color32( 255, 255, 255, 255 );
+			}
 		}
 
 		public override void StartTouch( Entity other )

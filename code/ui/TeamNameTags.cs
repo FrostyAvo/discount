@@ -103,21 +103,19 @@ namespace Discount.UI
 				return false;
 			}
 
-			// If the local player is in a team, don't draw enemy name tags
-			if ( Local.Pawn is TeamPlayer localPlayer && ( player is not TeamPlayer teamPlayer || localPlayer.Team != teamPlayer.Team ) )
+			// Don't draw enemy name tags except when spectating
+			if ( Local.Pawn is TeamPlayer localPlayer
+				&& localPlayer.Team != Team.Spectator
+				&& ( player is not TeamPlayer teamPlayer || localPlayer.Team != teamPlayer.Team ) )
 			{
 				return false;
 			}
 
-			//
 			// Where we putting the label, in world coords
-			//
 			Transform head = new Transform( player.EyePos );
 			Vector3 labelPos = head.Position + head.Rotation.Up * 5;
 
-			//
 			// Are we too far away?
-			//
 			float dist = labelPos.Distance( CurrentView.Position );
 
 			if ( dist > MaxDrawDistance )
@@ -125,22 +123,15 @@ namespace Discount.UI
 				return false;
 			}
 
-			//
 			// Are we looking in this direction?
-			//
 			Vector3 lookDir = (labelPos - CurrentView.Position).Normal;
 
 			if ( CurrentView.Rotation.Forward.Dot( lookDir ) < 0.5 )
 			{
 				return false;
 			}
-				
-			// TODO - can we see them
 
 			MaxDrawDistance = 400;
-
-			// Max Draw Distance
-
 			float alpha = dist.LerpInverse( MaxDrawDistance, MaxDrawDistance * 0.1f, true );
 
 			// If I understood this I'd make it proper function

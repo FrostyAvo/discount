@@ -2,7 +2,7 @@
 
 namespace Discount
 {
-	public partial class SpectatorPlayer : Player
+	public partial class SpectatorPlayer : TeamPlayer
 	{
 		public override void Respawn()
 		{
@@ -13,6 +13,11 @@ namespace Discount
 
 			// Spectators spawn at ground level, move them out of the ground
 			Position += Vector3.Up * 150f;
+		}
+
+		public override void TakeDamage( DamageInfo info )
+		{
+			// Don't take damage from triggers etc
 		}
 
 		public override void Simulate( Client cl )

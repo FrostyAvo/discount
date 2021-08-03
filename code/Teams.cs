@@ -42,7 +42,7 @@ namespace Discount
 				client.Pawn?.Delete();
 			}
 
-			client.Pawn = team == Team.Spectator ? new SpectatorPlayer() : new TeamPlayer() { Team = team };
+			client.Pawn = team == Team.Spectator ? new SpectatorPlayer() { Team = team } : new ClassPlayer() { Team = team };
 
 			if ( Game.Current.IsServer )
 			{

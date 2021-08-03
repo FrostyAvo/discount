@@ -4,7 +4,7 @@ namespace Discount
 {
 	[Library( "func_respawnroomvisualizer" )]
 	[Hammer.Solid]
-	class TeamBarrier : ModelEntity
+	public class TeamBarrier : ModelEntity
 	{
 		[Property( Title = "Team" )]
 		public int TeamIndex { get; protected set; } = 0;
@@ -18,19 +18,7 @@ namespace Discount
 			EnableSolidCollisions = false;
 			EnableTouch = true;
 			EnableDrawing = true;
-
-			if ( TeamIndex == 2 )
-			{
-				RenderColor = new Color32( 255, 128, 128, 255 );
-			}
-			else if ( TeamIndex == 3 )
-			{
-				RenderColor = new Color32( 128, 128, 255, 255 );
-			}
-			else
-			{
-				RenderColor = new Color32( 255, 255, 255, 255 );
-			}
+			RenderColor = Teams.GetLightTeamColor( (Team)TeamIndex );
 		}
 
 		public override void StartTouch( Entity other )
@@ -60,7 +48,7 @@ namespace Discount
 		protected void AddToucher( TeamPlayer toucher )
 		{
 			if ( !toucher.IsValid()
-				|| toucher.TeamIndex == TeamIndex )
+				|| (int)toucher.Team == TeamIndex )
 			{
 				return;
 			}

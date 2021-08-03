@@ -5,7 +5,7 @@ namespace Discount.Weapons
 	[Library( "weapon" )]
 	public class WeaponData : Asset
 	{
-		public string Name { get; set; } = "Weapon Name";
+		public new string Name { get; set; } = "Weapon Name";
 		public string ViewModelPath { get; set; } = "";
 		public string WorldModelPath { get; set; } = "";
 		public string PrimaryFireSound { get; set; } = "";

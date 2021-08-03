@@ -21,9 +21,10 @@ namespace Discount
 	[Library( "discount" )]
 	public partial class DiscountGame : Game
 	{
-		protected static HudEntity<RootPanel> activeHud_;
+		protected HudEntity<RootPanel> activeHud_;
+		protected Teams activeTeams_;
 
-		protected static HudEntity<RootPanel> ActiveHud
+		protected HudEntity<RootPanel> ActiveHud
 		{
 			get
 			{
@@ -47,6 +48,8 @@ namespace Discount
 			{
 				ActiveHud = new TeamSelectionUi();
 			}
+
+			activeTeams_ = new Teams();
 		}
 
 		/// <summary>
@@ -56,15 +59,15 @@ namespace Discount
 		{
 			base.ClientJoined( client );
 
-			// Bot clients have a fake SteamID with the Steam account type set to 4 (AnonGameServer)
-			if ( ((client.SteamId >> 52) & 0b1111) == 4 )
+			if ( ClientIsBot(client) )
 			{
 				// Make bots automatically join a team since they can't navigate the team selection UI
-				Player player = new TeamPlayer() { TeamIndex = Rand.Int( 2, 3 ) };
+				if ( IsServer )
+				{
+					ActiveHud = new MainHud();
+				}
 
-				client.Pawn = player;
-
-				player.Respawn();
+				activeTeams_.AutoAssignClient( client );
 
 				return;
 			}
@@ -83,7 +86,7 @@ namespace Discount
 
 			TeamSpawnPoint spawnpoint = All
 									.OfType<TeamSpawnPoint>()
-									.Where( (TeamSpawnPoint teamSpawnPoint) => { return teamSpawnPoint.TeamIndex == teamPlayer.TeamIndex; } )
+									.Where( (TeamSpawnPoint teamSpawnPoint) => { return teamSpawnPoint.TeamIndex == (int)teamPlayer.Team; } )
 									.OrderBy( x => Guid.NewGuid() )
 									.FirstOrDefault();
 
@@ -99,67 +102,74 @@ namespace Discount
 			pawn.Transform = spawnpoint.Transform;
 		}
 
+		public static bool ClientIsBot( Client client )
+		{
+			// Bot clients have a fake SteamID with the Steam account type set to 4 (AnonGameServer)
+			return ( ( client.SteamId >> 52 ) & 0b1111 ) == 4;
+		}
+
 		[ServerCmd( "changeteam", Help = "Opens the team selection menu" )]
 		public static void ChangeTeamCommand()
 		{
-			ChangeTeam(ConsoleSystem.Caller);
+			ChangeTeam( ConsoleSystem.Caller );
 		}
 
-		public static void ChangeTeam(Client target)
+		public static void ChangeTeam( Client target )
 		{
-			if ( target == null )
+			if ( target == null || Current is not DiscountGame discountGame )
 			{
 				return;
 			}
 
-			// Bot clients have a fake SteamID with the Steam account type set to 4 (AnonGameServer)
-			if ( ((target.SteamId >> 52) & 0b1111) == 4 )
+			// Bots can't navigate the team change menu, don't open it for them
+			if ( ClientIsBot(target) )
 			{
 				return;
 			}
 
 			if ( Current.IsServer )
 			{
-				ActiveHud = new TeamSelectionUi();
-				target.Pawn?.Delete();
+				discountGame.ActiveHud = new TeamSelectionUi();
 			}
 
-			target.Pawn = new SpectatorPlayer();
-
-			if ( Current.IsServer )
-			{
-				(target.Pawn as Player).Respawn();
-			}
+			discountGame.activeTeams_.AssignClientToTeam( target, Team.Spectator );
 		}
 
 		[ServerCmd( "jointeam", Help = "Joins the given team (red, blue, auto or spectator)" )]
-		public static void JoinTeamCommand(string teamName)
+		public static void JoinTeamCommand( string teamName )
 		{
 			Client target = ConsoleSystem.Caller;
 
-			if ( target == null )
+			if ( target == null || Current is not DiscountGame discountGame )
 			{
 				return;
 			}
 
-			int teamIndex;
+			if ( teamName == "auto" )
+			{
+				if ( Current.IsServer )
+				{
+					discountGame.ActiveHud = new MainHud();
+				}
+
+				discountGame.activeTeams_.AutoAssignClient( target );
+				return;
+			}
+
+			Team team;
 
 			switch ( teamName )
 			{
+				case "spectator":
+					team = Team.Spectator;
+					break;
+
 				case "red":
-					teamIndex = 2;
+					team = Team.Red;
 					break;
 
 				case "blue":
-					teamIndex = 3;
-					break;
-
-				case "auto":
-					teamIndex = Rand.Int(2, 3);
-					break;
-
-				case "spectator":
-					teamIndex = 1;
+					team = Team.Blue;
 					break;
 
 				default:
@@ -168,29 +178,20 @@ namespace Discount
 
 			if ( Current.IsServer )
 			{
-				ActiveHud = new MainHud();
-				target.Pawn?.Delete();
+				discountGame.ActiveHud = new MainHud();
 			}
 
-			target.Pawn = teamIndex == 1 ? new SpectatorPlayer() : new TeamPlayer() { TeamIndex = teamIndex };
-
-			if ( Current.IsServer )
-			{
-				(target.Pawn as Player).Respawn();
-			}
+			discountGame.activeTeams_.AssignClientToTeam( target, team );
 		}
 
-		[ServerCmd( "noclip", Help = "Turns on noclip mode, which makes you non solid and lets you fly around" )]
-		public new static void NoclipCommand()
+		public override void DoPlayerNoclip( Client player )
 		{
-			
+			// Disable noclip
 		}
 
-
-		[ServerCmd( "devcam", Help = "Enables the devcam. Input to the player will stop and you'll be able to freefly around." )]
-		public new static void DevcamCommand()
+		public override void DoPlayerDevCam( Client player )
 		{
-			
+			// Disable devcam
 		}
 	}
 }

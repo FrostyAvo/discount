@@ -2,7 +2,7 @@
 
 namespace Discount.Weapons
 {
-	partial class MeleeWeapon : HitscanWeapon
+	public partial class MeleeWeapon : HitscanWeapon
 	{
 		public MeleeWeapon() : base()
 		{

@@ -3,7 +3,7 @@ using Sandbox.UI.Construct;
 
 namespace Discount.UI
 {
-	class TeamSelectButton : Button
+	public class TeamSelectButton : Button
 	{
 		protected int teamIndex_;
 		protected Color notHoveredColor_;
@@ -13,33 +13,37 @@ namespace Discount.UI
 		{
 			teamIndex_ = teamIndex;
 
-			string buttonLabelText = "Join Random Team";
+			notHoveredColor_ = Teams.GetDarkTeamColor( (Team)teamIndex_ );
+
+			notHoveredColor_.a = 0.9f;
+
+			string buttonLabelText;
 
 			switch ( teamIndex_ )
 			{
 				case 1:
 					buttonLabelText = "Spectate";
-					notHoveredColor_ = new Color(0.4f, 0.4f, 0.2f, 0.9f);
-					hoveredColor_ = new Color( 0.5f, 0.5f, 0.3f, 0.9f );
 					break;
 
 				case 2:
 					buttonLabelText = "Join Red Team";
-					notHoveredColor_ = new Color( 0.4f, 0.2f, 0.2f, 0.9f );
-					hoveredColor_ = new Color( 0.5f, 0.3f, 0.3f, 0.9f );
 					break;
 
 				case 3:
 					buttonLabelText = "Join Blue Team";
-					notHoveredColor_ = new Color( 0.2f, 0.2f, 0.4f, 0.9f );
-					hoveredColor_ = new Color( 0.3f, 0.3f, 0.5f, 0.9f );
 					break;
 
 				default:
+					buttonLabelText = "Join Random Team";
 					notHoveredColor_ = new Color( 0.4f, 0.2f, 0.4f, 0.9f );
-					hoveredColor_ = new Color( 0.5f, 0.3f, 0.5f, 0.9f );
 					break;
 			}
+
+			hoveredColor_ = new Color(
+				notHoveredColor_.r + 0.1f,
+				notHoveredColor_.g + 0.1f,
+				notHoveredColor_.b + 0.1f,
+				0.9f );
 
 			Add.Label( buttonLabelText, "label" );
 		}
@@ -62,7 +66,7 @@ namespace Discount.UI
 		{
 			base.OnClick( e );
 
-			string teamNameString = "auto";
+			string teamNameString;
 
 			switch (teamIndex_)
 			{
@@ -79,6 +83,7 @@ namespace Discount.UI
 					break;
 
 				default:
+					teamNameString = "auto";
 					break;
 			}
 

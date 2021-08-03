@@ -2,7 +2,7 @@
 
 namespace Discount
 {
-	partial class SpectatorPlayer : Player
+	public partial class SpectatorPlayer : Player
 	{
 		public override void Respawn()
 		{
@@ -10,6 +10,9 @@ namespace Discount
 			Camera = new FirstPersonCamera();
 
 			base.Respawn();
+
+			// Spectators spawn at ground level, move them out of the ground
+			Position += Vector3.Up * 150f;
 		}
 
 		public override void Simulate( Client cl )

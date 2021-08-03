@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Discount.Weapons
 {
-	partial class HitscanWeapon : BaseWeapon
+	public partial class HitscanWeapon : BaseWeapon
 	{
 		[Net, Predicted]
 		public WeaponData Data { get; private set; }
@@ -71,7 +71,7 @@ namespace Discount.Weapons
 				// Don't hurt teammates
 				if ( traceResults.Current.Entity is TeamPlayer hitTeamPlayer
 					&& Owner is TeamPlayer ownerTeamPlayer
-					&& hitTeamPlayer.TeamIndex == ownerTeamPlayer.TeamIndex )
+					&& hitTeamPlayer.Team == ownerTeamPlayer.Team )
 				{
 					continue;
 				}

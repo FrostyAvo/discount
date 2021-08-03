@@ -104,7 +104,7 @@ namespace Discount.UI
 			}
 
 			// If the local player is in a team, don't draw enemy name tags
-			if ( Local.Pawn is TeamPlayer localPlayer && ( player is not TeamPlayer teamPlayer || localPlayer.TeamIndex != teamPlayer.TeamIndex ) )
+			if ( Local.Pawn is TeamPlayer localPlayer && ( player is not TeamPlayer teamPlayer || localPlayer.Team != teamPlayer.Team ) )
 			{
 				return false;
 			}

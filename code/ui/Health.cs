@@ -29,31 +29,8 @@ namespace Discount.UI
 
 			if ( player is TeamPlayer teamPlayer )
 			{
-				switch ( teamPlayer.TeamIndex )
-				{
-					case 0:
-						TeamLabel.Text = "Unassigned";
-						TeamLabel.Style.FontColor = Color.White;
-						break;
-
-					case 1:
-						TeamLabel.Text = "Spectator";
-						TeamLabel.Style.FontColor = Color.White;
-						break;
-
-					case 2:
-						TeamLabel.Text = "Red Team";
-						TeamLabel.Style.FontColor = new Color( 1f, 0.5f, 0.5f );
-						break;
-
-					case 3:
-						TeamLabel.Text = "Blue Team";
-						TeamLabel.Style.FontColor = new Color( 0.5f, 0.5f, 1f );
-						break;
-
-					default:
-						break;
-				}
+				TeamLabel.Text = Teams.GetLongTeamName( teamPlayer.Team );
+				TeamLabel.Style.FontColor = Teams.GetLightTeamColor( teamPlayer.Team );
 			}
 			else
 			{

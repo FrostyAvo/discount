@@ -4,9 +4,9 @@ using Sandbox;
 
 namespace Discount
 {
-	partial class TeamPlayer : Player
+	public partial class TeamPlayer : Player
 	{
-		[Net, Predicted] public int TeamIndex { get; set; }
+		[Net, Predicted] public Team Team { get; set; }
 		public TeamPlayer() : base()
 		{
 			Inventory = new BaseInventory( this );
@@ -27,8 +27,8 @@ namespace Discount
 
 			Wear( "models/citizen_clothes/hat/hat_hardhat.vmdl" );
 			Wear( "models/citizen_clothes/shoes/shoes.police.vmdl" );
-			Wear( TeamIndex == 2 ? "models/citizen_clothes/trousers/trousers.smarttan.vmdl" : "models/citizen_clothes/trousers/trousers.police.vmdl" );
-			Wear( TeamIndex == 2 ? "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl" : "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl" );
+			Wear( Team == Team.Red ? "models/citizen_clothes/trousers/trousers.smarttan.vmdl" : "models/citizen_clothes/trousers/trousers.police.vmdl" );
+			Wear( Team == Team.Red ? "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl" : "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl" );
 
 			SetBodyGroup( "Legs", 1 );
 			SetBodyGroup( "Chest", 1 );

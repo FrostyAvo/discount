@@ -127,7 +127,7 @@ namespace Discount
 				return;
 			}
 
-			if ( Current.IsServer )
+			if ( Host.IsServer )
 			{
 				discountGame.ActiveHud = new TeamSelectionUi();
 			}
@@ -176,7 +176,7 @@ namespace Discount
 					return;
 			}
 
-			if ( Current.IsServer )
+			if ( Host.IsServer )
 			{
 				discountGame.ActiveHud = new MainHud();
 			}

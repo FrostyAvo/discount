@@ -6,9 +6,9 @@ namespace Discount
 {
 	public partial class ClassPlayer : TeamPlayer
 	{
-		public ClassPlayer() : base()
+		public ClassPlayer()
 		{
-			Inventory = new BaseInventory( this );
+			Inventory = new ClassInventory( this );
 		}
 
 		public override void Respawn()
@@ -33,9 +33,13 @@ namespace Discount
 			SetBodyGroup( "Chest", 1 );
 			SetBodyGroup( "Feet", 1 );
 
-			Inventory.Add( new HitscanWeapon( "shotgun" ), true );
-			Inventory.Add( new HitscanWeapon( "pistol" ) );
-			Inventory.Add( new MeleeWeapon( "wrench" ) );
+			(Inventory as ClassInventory)?.Fill(
+				new Weapon[]
+				{
+					new HitscanWeapon( "shotgun" ),
+					new HitscanWeapon( "pistol" ),
+					new MeleeWeapon( "wrench" )
+				} );
 
 			base.Respawn();
 		}

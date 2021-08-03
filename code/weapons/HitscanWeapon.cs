@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Discount.Weapons
 {
-	public partial class HitscanWeapon : BaseWeapon
+	public partial class HitscanWeapon : Weapon
 	{
 		[Net, Predicted]
 		public WeaponData Data { get; private set; }

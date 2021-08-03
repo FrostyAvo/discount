@@ -37,14 +37,14 @@ namespace Discount
 
 		public void AssignClientToTeam( Client client, Team team )
 		{
-			if ( Game.Current.IsServer )
+			if ( Host.IsServer )
 			{
 				client.Pawn?.Delete();
 			}
 
 			client.Pawn = team == Team.Spectator ? new SpectatorPlayer() { Team = team } : new ClassPlayer() { Team = team };
 
-			if ( Game.Current.IsServer )
+			if ( Host.IsServer )
 			{
 				(client.Pawn as Player).Respawn();
 			}

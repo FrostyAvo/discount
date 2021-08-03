@@ -21,10 +21,10 @@ namespace Discount.UI
 
 			Panel buttonPanel = RootPanel.AddChild<Panel>("buttons");
 
-			TeamSelectButton redSelectButton = new TeamSelectButton( 2 );
-			TeamSelectButton blueSelectButton = new TeamSelectButton( 3 );
-			TeamSelectButton randomButton = new TeamSelectButton( -1 );
-			TeamSelectButton spectateSelectButton = new TeamSelectButton( 1 );
+			TeamSelectButton redSelectButton = new TeamSelectButton( Team.Red );
+			TeamSelectButton blueSelectButton = new TeamSelectButton( Team.Blue );
+			TeamSelectButton randomButton = new TeamSelectButton( (Team)(-1) );
+			TeamSelectButton spectateSelectButton = new TeamSelectButton( Team.Spectator );
 
 			buttonPanel.AddChild( redSelectButton );
 			buttonPanel.AddChild( blueSelectButton );

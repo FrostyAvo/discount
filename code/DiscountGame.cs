@@ -22,7 +22,9 @@ namespace Discount
 	public partial class DiscountGame : Game
 	{
 		protected HudEntity<RootPanel> activeHud_;
-		protected Teams activeTeams_;
+
+		[Net]
+		public Teams Teams { get; protected set; }
 
 		protected HudEntity<RootPanel> ActiveHud
 		{
@@ -49,7 +51,7 @@ namespace Discount
 				ActiveHud = new TeamSelectionUi();
 			}
 
-			activeTeams_ = new Teams();
+			Teams = new Teams();
 		}
 
 		/// <summary>
@@ -59,15 +61,15 @@ namespace Discount
 		{
 			base.ClientJoined( client );
 
+			Teams.OnClientConnected( client );
+
 			if ( ClientIsBot(client) )
 			{
 				// Make bots automatically join a team since they can't navigate the team selection UI
-				if ( IsServer )
+				if ( Teams.AutoAssignClient( client ) && IsServer )
 				{
 					ActiveHud = new MainHud();
 				}
-
-				activeTeams_.AutoAssignClient( client );
 
 				return;
 			}
@@ -75,9 +77,16 @@ namespace Discount
 			ChangeTeam(client);
 		}
 
+		public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+		{
+			base.ClientDisconnect( cl, reason );
+
+			Teams.OnClientDisconnected( cl );
+		}
+
 		public override void MoveToSpawnpoint( Entity pawn )
 		{
-			if (pawn is not TeamPlayer teamPlayer)
+			if ( pawn is not TeamPlayer teamPlayer )
 			{
 				base.MoveToSpawnpoint( pawn );
 
@@ -86,7 +95,10 @@ namespace Discount
 
 			TeamSpawnPoint spawnpoint = All
 									.OfType<TeamSpawnPoint>()
-									.Where( (TeamSpawnPoint teamSpawnPoint) => { return teamSpawnPoint.TeamIndex == (int)teamPlayer.Team; } )
+									.Where( ( TeamSpawnPoint teamSpawnPoint ) =>
+									{
+										return teamSpawnPoint.TeamIndex == (int)teamPlayer.Team;
+									} )
 									.OrderBy( x => Guid.NewGuid() )
 									.FirstOrDefault();
 
@@ -127,12 +139,13 @@ namespace Discount
 				return;
 			}
 
-			if ( Host.IsServer )
+			if ( Host.IsServer
+				&& discountGame.ActiveHud is not TeamSelectionUi )
 			{
 				discountGame.ActiveHud = new TeamSelectionUi();
 			}
 
-			discountGame.activeTeams_.AssignClientToTeam( target, Team.Spectator );
+			discountGame.Teams.AssignClientToTeam( target, Team.Spectator );
 		}
 
 		[ServerCmd( "jointeam", Help = "Joins the given team (red, blue, auto or spectator)" )]
@@ -147,12 +160,11 @@ namespace Discount
 
 			if ( teamName == "auto" )
 			{
-				if ( Current.IsServer )
+				if ( discountGame.Teams.AutoAssignClient( target ) && Host.IsServer )
 				{
 					discountGame.ActiveHud = new MainHud();
 				}
 
-				discountGame.activeTeams_.AutoAssignClient( target );
 				return;
 			}
 
@@ -176,12 +188,12 @@ namespace Discount
 					return;
 			}
 
-			if ( Host.IsServer )
+			if ( discountGame.Teams.AssignClientToTeam( target, team )
+				|| team == Team.Spectator
+				&& Host.IsServer )
 			{
 				discountGame.ActiveHud = new MainHud();
 			}
-
-			discountGame.activeTeams_.AssignClientToTeam( target, team );
 		}
 
 		public override void DoPlayerNoclip( Client player )

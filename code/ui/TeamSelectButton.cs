@@ -5,31 +5,33 @@ namespace Discount.UI
 {
 	public class TeamSelectButton : Button
 	{
-		protected int teamIndex_;
+		protected Team team_;
 		protected Color notHoveredColor_;
 		protected Color hoveredColor_;
 
-		public TeamSelectButton(int teamIndex)
-		{
-			teamIndex_ = teamIndex;
+		protected Label playerCount_;
 
-			notHoveredColor_ = Teams.GetDarkTeamColor( (Team)teamIndex_ );
+		public TeamSelectButton(Team team)
+		{
+			team_ = team;
+
+			notHoveredColor_ = Teams.GetDarkTeamColor( team );
 
 			notHoveredColor_.a = 0.9f;
 
 			string buttonLabelText;
 
-			switch ( teamIndex_ )
+			switch ( team )
 			{
-				case 1:
+				case Team.Spectator:
 					buttonLabelText = "Spectate";
 					break;
 
-				case 2:
+				case Team.Red:
 					buttonLabelText = "Join Red Team";
 					break;
 
-				case 3:
+				case Team.Blue:
 					buttonLabelText = "Join Blue Team";
 					break;
 
@@ -45,6 +47,7 @@ namespace Discount.UI
 				notHoveredColor_.b + 0.1f,
 				0.9f );
 
+			playerCount_ = Add.Label( "", "player-count" );
 			Add.Label( buttonLabelText, "label" );
 		}
 
@@ -60,6 +63,11 @@ namespace Discount.UI
 			{
 				Style.BackgroundColor = notHoveredColor_;
 			}
+
+			if ( team_ > 0 )
+			{
+				playerCount_.Text = Teams.GetTeamPlayerCount( team_ ) + " players";
+			}
 		}
 
 		protected override void OnClick( MousePanelEvent e )
@@ -68,17 +76,17 @@ namespace Discount.UI
 
 			string teamNameString;
 
-			switch (teamIndex_)
+			switch (team_)
 			{
-				case 1:
+				case Team.Spectator:
 					teamNameString = "spectator";
 					break;
 
-				case 2:
+				case Team.Red:
 					teamNameString = "red";
 					break;
 
-				case 3:
+				case Team.Blue:
 					teamNameString = "blue";
 					break;
 

@@ -19,12 +19,12 @@ namespace Discount
 		{
 			Host.AssertServer();
 
-			Contents = contents;
-
-			if ( Contents == null )
+			if ( contents == null )
 			{
-				Contents = new Weapon[0];
+				return;
 			}
+
+			Contents = contents;
 
 			for ( int i = 0; i < Contents.Length; i++ )
 			{

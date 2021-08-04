@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Discount
 {
-	public enum Team { Unassigned = 0, Spectator = 1, Red = 2, Blue = 3 }
+	public enum Team : sbyte { Unassigned = 0, Spectator = 1, Red = 2, Blue = 3 }
 
 	public partial class Teams : Entity
 	{
@@ -41,14 +41,14 @@ namespace Discount
 		};
 
 		[Net]
-		private List<int> teamPlayerCounts_ { get; set; }
+		private List<int> TeamPlayerCounts { get; set; }
 		[Net]
-		private List<Team> playerTeams_ { get; set; }
+		private List<Team> PlayerTeams { get; set; }
 
 		public Teams()
 		{
-			teamPlayerCounts_ = new List<int>( new int[4] );
-			playerTeams_ = new List<Team>( new Team[64] );
+			TeamPlayerCounts = new List<int>( new int[4] );
+			PlayerTeams = new List<Team>( new Team[64] );
 
 			Transmit = TransmitType.Always;
 		}
@@ -56,7 +56,7 @@ namespace Discount
 		public bool AssignClientToTeam( Client client, Team team )
 		{
 			// Do nothing if client already in the team
-			if ( playerTeams_[client.NetworkIdent - 1] == team )
+			if ( PlayerTeams[client.NetworkIdent - 1] == team )
 			{
 				return false;
 			}
@@ -66,13 +66,13 @@ namespace Discount
 				client.Pawn?.Delete();
 			}
 
-			Team previousTeam = playerTeams_[client.NetworkIdent - 1];
-			teamPlayerCounts_[(int)previousTeam]--;
+			Team previousTeam = PlayerTeams[client.NetworkIdent - 1];
+			TeamPlayerCounts[(int)previousTeam]--;
 
 			client.Pawn = team == Team.Spectator ? new SpectatorPlayer() { Team = team } : new ClassPlayer() { Team = team };
 
-			playerTeams_[client.NetworkIdent - 1] = team;
-			teamPlayerCounts_[(int)team]++;
+			PlayerTeams[client.NetworkIdent - 1] = team;
+			TeamPlayerCounts[(int)team]++;
 
 			if ( Host.IsServer )
 			{
@@ -92,14 +92,14 @@ namespace Discount
 
 		public void OnClientConnected( Client client )
 		{
-			teamPlayerCounts_[(int)Team.Unassigned]++;
+			TeamPlayerCounts[(int)Team.Unassigned]++;
 		}
 
 		public void OnClientDisconnected( Client client )
 		{
-			teamPlayerCounts_[(int)playerTeams_[client.NetworkIdent - 1]]--;
+			TeamPlayerCounts[(int)PlayerTeams[client.NetworkIdent - 1]]--;
 
-			playerTeams_[client.NetworkIdent - 1] = Team.Unassigned;
+			PlayerTeams[client.NetworkIdent - 1] = Team.Unassigned;
 		}
 
 		public static int GetTeamPlayerCount( Team team )
@@ -108,12 +108,12 @@ namespace Discount
 
 			if ( activeTeams == null
 				|| team < 0
-				|| (int)team >= activeTeams.teamPlayerCounts_.Count )
+				|| (int)team >= activeTeams.TeamPlayerCounts.Count )
 			{
 				return -1;
 			}
 
-			return activeTeams.teamPlayerCounts_[(int)team];
+			return activeTeams.TeamPlayerCounts[(int)team];
 		}
 
 		public static Color GetLightTeamColor( Team team )

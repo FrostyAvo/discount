@@ -6,16 +6,11 @@ namespace Discount.UI
 {
 	public class InventoryBar : Panel
 	{
-		protected readonly int slotCount_ = 5;
 		protected readonly List<InventoryIcon> slots_ = new List<InventoryIcon>();
 
 		public InventoryBar()
 		{
-			for ( int i = 0; i < slotCount_; i++ )
-			{
-				InventoryIcon icon = new InventoryIcon( i + 1, this );
-				slots_.Add( icon );
-			}
+
 		}
 
 		public override void Tick()
@@ -24,14 +19,45 @@ namespace Discount.UI
 
 			Entity player = Local.Pawn;
 
-			if ( player == null || player.Inventory == null )
+			if ( player == null )
 			{
 				return;
 			}
 
-			for ( int i = 0; i < slots_.Count; i++ )
+			if ( player.Inventory == null )
+			{
+				ChangeSlotCount( 0 );
+
+				return;
+			}
+
+			int playerItemCount = player.Inventory.Count();
+
+			if ( playerItemCount != slots_.Count )
+			{
+				ChangeSlotCount( playerItemCount );
+			}
+
+			for ( int i = 0; i < playerItemCount; i++ )
 			{
 				UpdateIcon( player.Inventory.GetSlot( i ), slots_[i], i );
+			}
+		}
+
+		private void ChangeSlotCount( int newCount )
+		{
+			if ( newCount < slots_.Count )
+			{
+				slots_.RemoveRange( newCount, slots_.Count - newCount );
+			}
+			else if ( newCount > slots_.Count )
+			{
+				int slotsToAdd = newCount - slots_.Count;
+
+				for ( int i = 0; i < slotsToAdd; i++ )
+				{
+					slots_.Add( new InventoryIcon( i + 1, this ) );
+				}
 			}
 		}
 

@@ -36,7 +36,7 @@ namespace Discount.UI
 					break;
 
 				default:
-					buttonLabelText = "Join Random Team";
+					buttonLabelText = "Auto-Select Team";
 					notHoveredColor_ = new Color( 0.4f, 0.2f, 0.4f, 0.9f );
 					break;
 			}

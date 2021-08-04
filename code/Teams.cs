@@ -87,6 +87,20 @@ namespace Discount
 
 		public bool AutoAssignClient( Client client )
 		{
+			int redPlayerCount = TeamPlayerCounts[(int)Team.Red];
+			int bluePlayerCount = TeamPlayerCounts[(int)Team.Blue];
+
+			// Assign to the team with the least players
+			if ( redPlayerCount > bluePlayerCount )
+			{
+				return AssignClientToTeam( client, Team.Blue );
+			}
+			else if ( redPlayerCount < bluePlayerCount )
+			{
+				return AssignClientToTeam( client, Team.Red );
+			}
+
+			// If equal player counts, assign randomly
 			return AssignClientToTeam( client, (Team)Rand.Int( 2, 3 ) );
 		}
 

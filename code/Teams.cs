@@ -69,7 +69,7 @@ namespace Discount
 			Team previousTeam = PlayerTeams[client.NetworkIdent - 1];
 			TeamPlayerCounts[(int)previousTeam]--;
 
-			client.Pawn = team == Team.Spectator ? new SpectatorPlayer() { Team = team } : new ClassPlayer() { Team = team };
+			client.Pawn = team == Team.Spectator ? new SpectatorPlayer() { Team = team } : new ClassPlayer( "engineer" ) { Team = team };
 
 			PlayerTeams[client.NetworkIdent - 1] = team;
 			TeamPlayerCounts[(int)team]++;

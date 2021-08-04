@@ -1,6 +1,6 @@
 @BaseClass = weapon : "A weapon"
 [
-	Name(string) : "Name" : "Weapon Name"
+	Name(string) : "Weapon Name" : "Weapon"
 	ViewModelPath(string) : "View Model Path" : ""
 	WorldModelPath(string) : "World Model Path" : ""
 	PrimaryFireSound(string) : "Primary Fire Sound" : ""

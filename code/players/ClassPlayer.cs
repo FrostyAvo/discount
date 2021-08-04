@@ -6,9 +6,19 @@ namespace Discount
 {
 	public partial class ClassPlayer : TeamPlayer
 	{
+		[Net, Predicted]
+		public ClassData Data { get; protected set; }
+
 		public ClassPlayer()
 		{
 			Inventory = new ClassInventory( this );
+			Data = null;
+		}
+
+		public ClassPlayer( string classData )
+		{
+			Inventory = new ClassInventory( this );
+			Data = Resource.FromPath<ClassData>( "data/" + classData + ".class" );
 		}
 
 		public override void Respawn()
@@ -24,22 +34,28 @@ namespace Discount
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
 
-			Wear( "models/citizen_clothes/hat/hat_hardhat.vmdl" );
-			Wear( "models/citizen_clothes/shoes/shoes.police.vmdl" );
-			Wear( Team == Team.Red ? "models/citizen_clothes/trousers/trousers.smarttan.vmdl" : "models/citizen_clothes/trousers/trousers.police.vmdl" );
-			Wear( Team == Team.Red ? "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl" : "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl" );
+			if ( Data != null )
+			{
+				(Controller as WalkController).DefaultSpeed = Data.MoveSpeed;
+				Health = Data.Health;
 
-			SetBodyGroup( "Legs", 1 );
-			SetBodyGroup( "Chest", 1 );
-			SetBodyGroup( "Feet", 1 );
+				Wear( Data.HatPath );
+				Wear( Team == Team.Red ? Data.RedShirtPath : Data.BlueShirtPath );
+				Wear( Team == Team.Red ? Data.RedPantsPath : Data.BluePantsPath );
+				Wear( Data.ShoesPath );
 
-			(Inventory as ClassInventory)?.Fill(
-				new Weapon[]
-				{
-					new HitscanWeapon( "shotgun" ),
-					new HitscanWeapon( "pistol" ),
-					new MeleeWeapon( "wrench" )
-				} );
+				SetBodyGroup( "Legs", 1 );
+				SetBodyGroup( "Chest", 1 );
+				SetBodyGroup( "Feet", 1 );
+
+				(Inventory as ClassInventory)?.Fill(
+					new Weapon[]
+					{
+					new HitscanWeapon( Data.PrimaryWeapon ),
+					new HitscanWeapon( Data.SecondaryWeapon ),
+					new MeleeWeapon( Data.MeleeWeapon )
+					} );
+			}
 
 			base.Respawn();
 		}

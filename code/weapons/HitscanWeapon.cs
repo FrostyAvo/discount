@@ -5,37 +5,17 @@ namespace Discount.Weapons
 {
 	public partial class HitscanWeapon : Weapon
 	{
-		[Net, Predicted]
-		public WeaponData Data { get; private set; }
-
 		public override float PrimaryRate => Data != null ? Data.PrimaryFireRate : 1f;
 		public override string ViewModelPath => Data != null ? Data.ViewModelPath : "";
 
-		public HitscanWeapon()
+		public HitscanWeapon() : base()
 		{
-			Data = null;
+
 		}
 
-		public HitscanWeapon(string weaponData)
+		public HitscanWeapon( string weaponData ) : base( weaponData )
 		{
-			Data = Resource.FromPath<WeaponData>( "data/" + weaponData + ".weapon" );
 
-			SetModel( Data.WorldModelPath );
-		}
-
-		public override string ToString()
-		{
-			return Data != null ? Data.Name : "null";
-		}
-
-		public override void Spawn()
-		{
-			base.Spawn();
-
-			if ( Data == null )
-			{
-				return;
-			}
 		}
 
 		public override void AttackPrimary()

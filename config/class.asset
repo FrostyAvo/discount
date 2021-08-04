@@ -2,7 +2,7 @@
 [
 	Name(string) : "Class Name" : "Class"
 	Health(int) : "Maximum Health" : "125"
-	MoveSpeed(float) : "Movement Speed" : "150"
+	MoveSpeed(float) : "Movement Speed" : "250"
 	PrimaryWeapon(string) : "Primary Weapon" : ""
 	SecondaryWeapon(string) : "Secondary Weapon" : ""
 	MeleeWeapon(string) : "Melee Weapon" : ""

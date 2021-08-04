@@ -2,17 +2,17 @@
 {
 	data = 
 	{
-		Name = "Engineer"
+		Name = "Sniper"
 		Health = 125
 		MoveSpeed = 250.0
-		PrimaryWeapon = "shotgun"
+		PrimaryWeapon = "sniperrifle"
 		SecondaryWeapon = "pistol"
-		MeleeWeapon = "wrench"
-		HatPath = "models/citizen_clothes/hat/hat_hardhat.vmdl"
+		MeleeWeapon = "kukri"
+		HatPath = "models/citizen_clothes/hair/hair_malestyle02.vmdl"
 		RedShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
 		BlueShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
-		RedPantsPath = "models/citizen_clothes/trousers/trousers.smarttan.vmdl"
-		BluePantsPath = "models/citizen_clothes/trousers/trousers.police.vmdl"
-		ShoesPath = "models/citizen_clothes/shoes/shoes.police.vmdl"
+		RedPantsPath = "models/citizen_clothes/shoes/shorts.cargo.vmdl"
+		BluePantsPath = "models/citizen_clothes/shoes/shorts.cargo.vmdl"
+		ShoesPath = "models/citizen_clothes/shoes/smartshoes/smartshoes.vmdl"
 	}
 }

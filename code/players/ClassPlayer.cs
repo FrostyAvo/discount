@@ -25,7 +25,7 @@ namespace Discount
 		{
 			SetModel( "models/citizen/citizen.vmdl" );
 
-			Controller = new WalkController();
+			Controller = new PlayerController();
 			Animator = new StandardPlayerAnimator();
 			Camera = new FirstPersonCamera();
 
@@ -34,19 +34,52 @@ namespace Discount
 			EnableHideInFirstPerson = true;
 			EnableShadowInFirstPerson = true;
 
+			base.Respawn();
+
 			if ( Data != null )
 			{
-				(Controller as WalkController).DefaultSpeed = Data.MoveSpeed;
+				(Controller as PlayerController).DefaultSpeed = Data.MoveSpeed;
 				Health = Data.Health;
 
-				Wear( Data.HatPath );
-				Wear( Team == Team.Red ? Data.RedShirtPath : Data.BlueShirtPath );
-				Wear( Team == Team.Red ? Data.RedPantsPath : Data.BluePantsPath );
-				Wear( Data.ShoesPath );
+				if ( Data.HatPath != "" )
+				{
+					Wear( Data.HatPath );
+				}
 
-				SetBodyGroup( "Legs", 1 );
-				SetBodyGroup( "Chest", 1 );
-				SetBodyGroup( "Feet", 1 );
+				if ( Team == Team.Red )
+				{
+					if ( Data.RedShirtPath != "" )
+					{
+						Wear( Data.RedShirtPath );
+						SetBodyGroup( "Chest", 1 );
+					}
+
+					if ( Data.RedPantsPath != "" )
+					{
+						Wear( Data.RedPantsPath );
+						SetBodyGroup( "Legs", 1 );
+					}
+				}
+				else
+				{
+					if ( Data.BlueShirtPath != "" )
+					{
+						Wear( Data.BlueShirtPath );
+						SetBodyGroup( "Chest", 1 );
+					}
+
+					if ( Data.BluePantsPath != "" )
+					{
+						Wear( Data.BluePantsPath );
+						SetBodyGroup( "Legs", 1 );
+					}
+				}
+
+				if ( Data.ShoesPath != "" )
+				{
+					Wear( Data.ShoesPath );
+					SetBodyGroup( "Feet", 1 );
+				}
 
 				(Inventory as ClassInventory)?.Fill(
 					new Weapon[]
@@ -56,8 +89,6 @@ namespace Discount
 					new MeleeWeapon( Data.MeleeWeapon )
 					} );
 			}
-
-			base.Respawn();
 		}
 
 		/// <summary>

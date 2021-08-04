@@ -2,17 +2,17 @@
 {
 	data = 
 	{
-		Name = "Engineer"
+		Name = "Scout"
 		Health = 125
-		MoveSpeed = 250.0
+		MoveSpeed = 330.0
 		PrimaryWeapon = "shotgun"
 		SecondaryWeapon = "pistol"
-		MeleeWeapon = "wrench"
-		HatPath = "models/citizen_clothes/hat/hat_hardhat.vmdl"
+		MeleeWeapon = "bat"
+		HatPath = "models/citizen_clothes/hat/hat_leathercap.vmdl"
 		RedShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
 		BlueShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
-		RedPantsPath = "models/citizen_clothes/trousers/trousers.smarttan.vmdl"
-		BluePantsPath = "models/citizen_clothes/trousers/trousers.police.vmdl"
-		ShoesPath = "models/citizen_clothes/shoes/shoes.police.vmdl"
+		RedPantsPath = "models/citizen_clothes/trousers/trousers_tracksuit.vmdl"
+		BluePantsPath = "models/citizen_clothes/trousers/trousers_tracksuitblue.vmdl"
+		ShoesPath = "models/citizen_clothes/shoes/trainers.vmdl"
 	}
 }

@@ -2,14 +2,14 @@
 {
 	data = 
 	{
-		Name = "Wrenchlight"
+		Name = "Batlight"
 		ViewModelPath = "weapons/rust_flashlight/v_rust_flashlight.vmdl"
 		WorldModelPath = "weapons/rust_pistol/rust_pistol.vmdl"
 		PrimaryFireSound = "rust_flashlight.attack"
 		HoldType = 4
 		BulletsPerShot = 1
-		PrimaryFireRate = 1.25
-		Damage = 65.0
+		PrimaryFireRate = 2.0
+		Damage = 35.0
 		Knockback = 20.0
 		SpreadAngle = 0.0
 		Range = 70.0

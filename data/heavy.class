@@ -2,13 +2,13 @@
 {
 	data = 
 	{
-		Name = "Engineer"
-		Health = 125
-		MoveSpeed = 250.0
-		PrimaryWeapon = "shotgun"
-		SecondaryWeapon = "pistol"
-		MeleeWeapon = "wrench"
-		HatPath = "models/citizen_clothes/hat/hat_hardhat.vmdl"
+		Name = "Heavy"
+		Health = 200
+		MoveSpeed = 190.0
+		PrimaryWeapon = "minigun"
+		SecondaryWeapon = "shotgun"
+		MeleeWeapon = "fists"
+		HatPath = ""
 		RedShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
 		BlueShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
 		RedPantsPath = "models/citizen_clothes/trousers/trousers.smarttan.vmdl"

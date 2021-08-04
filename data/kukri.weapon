@@ -2,7 +2,7 @@
 {
 	data = 
 	{
-		Name = "Wrenchlight"
+		Name = "Kukrilight"
 		ViewModelPath = "weapons/rust_flashlight/v_rust_flashlight.vmdl"
 		WorldModelPath = "weapons/rust_pistol/rust_pistol.vmdl"
 		PrimaryFireSound = "rust_flashlight.attack"

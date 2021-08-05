@@ -56,7 +56,13 @@ namespace Discount.Weapons
 					continue;
 				}
 
-				traceResults.Current.Surface.DoBulletImpact( traceResults.Current );
+				if ( IsServer )
+				{
+					using ( Prediction.Off() )
+					{
+						traceResults.Current.Surface.DoBulletImpact( traceResults.Current );
+					}
+				}
 
 				// Don't damage if there's nothing to damage or if we're not the server
 				if ( !IsServer || !traceResults.Current.Entity.IsValid())

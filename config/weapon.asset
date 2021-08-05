@@ -11,4 +11,5 @@
 	Knockback(float) : "Knockback Per Bullet" : "0"
 	SpreadAngle(float) : "Spread Cone Angle" : "0"
 	Range(float) : "Range" : "2000"
+	CanHeadshot(bool) : "Can Headshot" : "false"
 ]

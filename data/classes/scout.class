@@ -8,7 +8,7 @@
 		PrimaryWeapon = "shotgun"
 		SecondaryWeapon = "pistol"
 		MeleeWeapon = "bat"
-		HatPath = "models/citizen_clothes/hat/hat_leathercap.vmdl"
+		HatPath = "models/citizen_clothes/hat/hat_leathercapnobadge.vmdl"
 		RedShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
 		BlueShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
 		RedPantsPath = "models/citizen_clothes/trousers/trousers_tracksuit.vmdl"

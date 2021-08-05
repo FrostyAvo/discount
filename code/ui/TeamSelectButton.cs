@@ -11,7 +11,7 @@ namespace Discount.UI
 
 		protected Label playerCount_;
 
-		public TeamSelectButton(Team team)
+		public TeamSelectButton( Team team )
 		{
 			team_ = team;
 

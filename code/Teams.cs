@@ -58,26 +58,18 @@ namespace Discount
 			// Do nothing if client already in the team
 			if ( PlayerTeams[client.NetworkIdent - 1] == team )
 			{
-				return false;
+				return true;
 			}
 
-			if ( Host.IsServer )
-			{
-				client.Pawn?.Delete();
-			}
-
+			// Update team player counts
 			Team previousTeam = PlayerTeams[client.NetworkIdent - 1];
 			TeamPlayerCounts[(int)previousTeam]--;
-
-			client.Pawn = team == Team.Spectator ? new SpectatorPlayer() { Team = team } : new ClassPlayer( "sniper" ) { Team = team };
 
 			PlayerTeams[client.NetworkIdent - 1] = team;
 			TeamPlayerCounts[(int)team]++;
 
 			if ( Host.IsServer )
 			{
-				(client.Pawn as Player).Respawn();
-
 				Log.Info( $"\"{ client.Name }\" { joinedStrings_[(int)team] }" );
 				ChatBox.AddInformation( To.Everyone, $"{ client.Name } { joinedStrings_[(int)team] }", $"avatar:{ client.SteamId }" );
 			}
@@ -130,9 +122,21 @@ namespace Discount
 			return activeTeams.TeamPlayerCounts[(int)team];
 		}
 
+		public Team GetClientTeam( Client client )
+		{
+			int startAtZeroNetworkId = client.NetworkIdent - 1;
+
+			if ( startAtZeroNetworkId < 0 || startAtZeroNetworkId >= PlayerTeams.Count )
+			{
+				return Team.Unassigned;
+			}
+
+			return PlayerTeams[startAtZeroNetworkId];
+		}
+
 		public static Color GetLightTeamColor( Team team )
 		{
-			if (team < 0 || (int)team > lightTeamColors_.Length)
+			if (team < 0 || (int)team >= lightTeamColors_.Length)
 			{
 				return lightTeamColors_[0];
 			}
@@ -142,7 +146,7 @@ namespace Discount
 
 		public static Color GetDarkTeamColor( Team team )
 		{
-			if ( team < 0 || (int)team > darkTeamColors_.Length )
+			if ( team < 0 || (int)team >= darkTeamColors_.Length )
 			{
 				return darkTeamColors_[0];
 			}
@@ -152,7 +156,7 @@ namespace Discount
 
 		public static string GetLongTeamName( Team team )
 		{
-			if ( team < 0 || (int)team > longTeamNames_.Length )
+			if ( team < 0 || (int)team >= longTeamNames_.Length )
 			{
 				return "Unknown";
 			}

@@ -12,6 +12,6 @@
 		Damage = 50.0
 		Knockback = 30.0
 		SpreadAngle = 0.0
-		Range = 4000.0
+		Range = 10000.0
 	}
 }

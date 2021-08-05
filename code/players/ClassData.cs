@@ -5,6 +5,11 @@ namespace Discount
 	[Library("class")]
 	public class ClassData : Asset
 	{
+		public readonly static string[] AllClasses = new string[]
+		{
+			"scout", "heavy", "engineer", "sniper"
+		};
+
 		public new string Name { get; set; } = "Class";
 		public int Health { get; set; } = 125;
 		public float MoveSpeed { get; set; } = 150;

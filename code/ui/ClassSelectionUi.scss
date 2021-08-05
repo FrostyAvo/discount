@@ -18,7 +18,7 @@ rootpanel
 		background-color: rgba( #111, 0.6 );
 	}
 	
-	.select-team-label
+	.select-class-label
 	{
 		position: absolute;
 		padding: 35px 35px;
@@ -31,12 +31,12 @@ rootpanel
 	}
 }
 
-TeamSelectButton
+ClassSelectButton
 {
 	position: relative;
 	margin: 0px 5px;
 	
-	width: 300px;
+	width: 200px;
 	height: 90%;
 	
 	background-color: rgba( #888, 1 );
@@ -53,17 +53,6 @@ TeamSelectButton
 		color: white;
 		text-align: center;
 		bottom: 0px;
-		position: absolute;
-		padding: 35px 0px;
-		text-shadow: 0px 2px 3px black;
-	}
-	
-	.player-count
-	{
-		font-size: 30px;
-		color: white;
-		text-align: center;
-		bottom: 40px;
 		position: absolute;
 		padding: 35px 0px;
 		text-shadow: 0px 2px 3px black;

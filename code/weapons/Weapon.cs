@@ -17,7 +17,7 @@ namespace Discount.Weapons
 
 		protected Weapon( string weaponData )
 		{
-			Data = Resource.FromPath<WeaponData>( "data/" + weaponData + ".weapon" );
+			Data = Resource.FromPath<WeaponData>( "data/weapons/" + weaponData + ".weapon" );
 
 			SetModel( Data.WorldModelPath );
 		}

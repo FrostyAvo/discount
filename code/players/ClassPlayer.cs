@@ -18,7 +18,7 @@ namespace Discount
 		public ClassPlayer( string classData )
 		{
 			Inventory = new ClassInventory( this );
-			Data = Resource.FromPath<ClassData>( "data/" + classData + ".class" );
+			Data = Resource.FromPath<ClassData>( "data/classes/" + classData + ".class" );
 		}
 
 		public override void Respawn()

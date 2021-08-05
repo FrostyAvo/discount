@@ -13,5 +13,6 @@
 		Knockback = 30.0
 		SpreadAngle = 0.0
 		Range = 10000.0
+		CanHeadshot = true
 	}
 }

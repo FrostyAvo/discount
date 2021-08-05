@@ -64,13 +64,23 @@ namespace Discount.Weapons
 					continue;
 				}
 
+				float damageToDeal = Data.Damage;
+
+				// Apply headshot damage if relevant
+				if ( Data.CanHeadshot
+					&& traceResults.Current.Entity is Player hitPlayer
+					&& hitPlayer.GetHitboxGroup( traceResults.Current.HitboxIndex ) == 1 )
+				{
+					damageToDeal *= 3f;
+				}
+
 				using ( Prediction.Off() )
 				{
 					traceResults.Current.Entity.TakeDamage(
 						DamageInfo.FromBullet(
 							traceResults.Current.EndPos,
 							pelletDirection * Data.Knockback,
-							Data.Damage ).WithAttacker( Owner, this ) );
+							damageToDeal ).WithAttacker( Owner, this ) );
 				}
 			}
 		}

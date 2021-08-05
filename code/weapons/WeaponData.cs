@@ -16,5 +16,6 @@ namespace Discount.Weapons
 		public float Knockback { get; set; } = 0;
 		public float SpreadAngle { get; set; } = 10;
 		public float Range { get; set; } = 2000;
+		public bool CanHeadshot { get; set; } = false;
 	}
 }

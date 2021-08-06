@@ -30,12 +30,24 @@ namespace Discount.UI
 			if ( player is TeamPlayer teamPlayer )
 			{
 				TeamLabel.Text = Teams.GetLongTeamName( teamPlayer.Team );
-				TeamLabel.Style.FontColor = Teams.GetLightTeamColor( teamPlayer.Team );
+
+				Color teamColor = Teams.GetLightTeamColor( teamPlayer.Team );
+
+				if ( TeamLabel.Style.FontColor != teamColor )
+				{
+					TeamLabel.Style.FontColor = teamColor;
+					TeamLabel.Style.Dirty();
+				}
 			}
 			else
 			{
 				TeamLabel.Text = "Neutral";
-				TeamLabel.Style.FontColor = Color.White;
+
+				if ( TeamLabel.Style.FontColor != Color.White )
+				{
+					TeamLabel.Style.FontColor = Color.White;
+					TeamLabel.Style.Dirty();
+				}
 			}
 		}
 	}

@@ -11,11 +11,6 @@ namespace Discount.UI
 		public InventoryBar()
 		{
 			slots_ = new List<InventoryIcon>();
-
-			for ( int i = 0; i < 3; i++ )
-			{
-				slots_.Add( new InventoryIcon( i + 1, this ) );
-			}
 		}
 
 		public override void Tick()
@@ -26,10 +21,7 @@ namespace Discount.UI
 
 			if ( player == null || player.Inventory == null )
 			{
-				if ( slots_.Count != 0 )
-				{
-					ChangeSlotCount( 0 );
-				}
+				ChangeSlotCount( 0 );
 
 				return;
 			}
@@ -49,8 +41,13 @@ namespace Discount.UI
 
 		private void ChangeSlotCount( int newCount )
 		{
-			/*if ( newCount < slots_.Count )
+			if ( newCount < slots_.Count )
 			{
+				foreach ( InventoryIcon slot in slots_.GetRange( newCount, slots_.Count - newCount ) )
+				{
+					slot?.Delete();
+				}
+				
 				slots_.RemoveRange( newCount, slots_.Count - newCount );
 			}
 			else if ( newCount > slots_.Count )
@@ -61,7 +58,7 @@ namespace Discount.UI
 				{
 					slots_.Add( new InventoryIcon( i + 1, this ) );
 				}
-			}*/
+			}
 		}
 
 		private static void UpdateIcon( Entity ent, InventoryIcon inventoryIcon, int i )

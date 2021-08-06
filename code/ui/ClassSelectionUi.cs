@@ -6,6 +6,8 @@ namespace Discount.UI
 	[Library]
 	public class ClassSelectionUi : HudEntity<RootPanel>
 	{
+		protected Panel buttonPanel_;
+
 		public ClassSelectionUi()
 		{
 			if ( !IsClient )
@@ -15,7 +17,7 @@ namespace Discount.UI
 
 			RootPanel.StyleSheet.Load( "/ui/ClassSelectionUi.scss" );
 
-			Panel buttonPanel = RootPanel.AddChild<Panel>("buttons");
+			buttonPanel_ = RootPanel.AddChild<Panel>("buttons");
 
 			Label label = RootPanel.AddChild<Label>( "select-class-label" );
 
@@ -23,10 +25,10 @@ namespace Discount.UI
 
 			foreach (string className in ClassData.AllClasses)
 			{
-				buttonPanel.AddChild( new ClassSelectButton( className ) );
+				buttonPanel_.AddChild( new ClassSelectButton( className ) );
 			}
 
-			buttonPanel.AddChild( new ClassSelectButton( "random" ) );
+			buttonPanel_.AddChild( new ClassSelectButton( "random" ) );
 		}
 
 		public void Enable()
@@ -34,6 +36,12 @@ namespace Discount.UI
 			RootPanel.Style.Display = DisplayMode.Flex;
 			RootPanel.Style.PointerEvents = "all";
 			RootPanel.Style.Dirty();
+
+			// Update button colors
+			foreach ( Panel child in buttonPanel_.Children )
+			{
+				child.Tick();
+			}
 		}
 
 		public void Disable()

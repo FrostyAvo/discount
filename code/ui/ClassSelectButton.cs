@@ -6,8 +6,8 @@ namespace Discount.UI
 {
 	public class ClassSelectButton : Button
 	{
-		protected Team clientTeam_;
 		protected string className_;
+		protected Team clientTeam_;
 		protected Color notHoveredColor_;
 		protected Color hoveredColor_;
 
@@ -39,11 +39,19 @@ namespace Discount.UI
 
 			if (HasHovered)
 			{
-				Style.BackgroundColor = hoveredColor_;
+				if ( Style.BackgroundColor != hoveredColor_ )
+				{
+					Style.BackgroundColor = hoveredColor_;
+					Style.Dirty();
+				}
 			}
 			else
 			{
-				Style.BackgroundColor = notHoveredColor_;
+				if ( Style.BackgroundColor != notHoveredColor_ )
+				{
+					Style.BackgroundColor = notHoveredColor_;
+					Style.Dirty();
+				}
 			}
 		}
 
@@ -76,6 +84,11 @@ namespace Discount.UI
 					notHoveredColor_.g + 0.1f,
 					notHoveredColor_.b + 0.1f,
 					0.9f );
+
+				Style.BackgroundColor = notHoveredColor_;
+				Style.Dirty();
+
+				SkipTransitions();
 			}
 		}
 	}

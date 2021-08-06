@@ -17,5 +17,10 @@
 		CanHeadshot = false
 		WindupTime = 0.0
 		WindupSound = ""
+		ClipSize = 6
+		ReserveAmmo = 32
+		ReloadTime = 0.6
+		AmmoPerReload = 1
+		ReloadSound = "rust_pumpshotgun.insert"
 	}
 }

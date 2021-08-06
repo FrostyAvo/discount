@@ -12,6 +12,12 @@ namespace Discount.Weapons
 		public int HoldType { get; set; } = 0;
 		public int BulletsPerShot { get; set; } = 1;
 		public float PrimaryFireRate { get; set; } = 1;
+		public int AmmoPerShot { get; set; } = 1;
+		public int ClipSize { get; set; } = 1;
+		public int ReserveAmmo { get; set; } = 1;
+		public int AmmoPerReload { get; set; } = 1;
+		public float ReloadTime { get; set; } = 1f;
+		public string ReloadSound { get; set; } = "";
 		public float Damage { get; set; } = 5;
 		public float Knockback { get; set; } = 0;
 		public float SpreadAngle { get; set; } = 10;

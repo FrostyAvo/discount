@@ -1,4 +1,11 @@
-Health
+rootpanel
+{
+	background-color: rgba( #333, 0 );
+	transition: background-color 0.2s ease-in;
+	pointer-events: none;
+}
+
+HealthPanel
 {
 	position: absolute;
 	background-color: rgba( black, 0.5 );
@@ -44,13 +51,50 @@ Health
 	}
 }
 
-rootpanel
+AmmoPanel
 {
-	background-color: rgba( #333, 0 );
-	transition: background-color 0.2s ease-in;
-	pointer-events: none;
+	position: absolute;
+	right: 100px;
+	bottom: 48px;
+	font-weight: bold;
+	color: white;
+	height: 80px;
+	width: 80px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 0 10px;
+	
+	.clip-value
+	{
+		padding: 5px;
+		color: white;
+		height: 80px;
+		width: 80px;
+		right: 0px;
+		background-color: rgba( black, 0.5 );
+		font-size: 40px;
+		padding: 0 5px;
+		align-items: center;
+		position: absolute;
+	}
+		
+	.reserve-value
+	{
+		padding: 5px;
+		color: rgba( #CCC, 1 );
+		height: 60px;
+		width: 80px;
+		right: 90px;
+		bottom: 0px;
+		background-color: rgba( black, 0.5 );
+		font-size: 30px;
+		padding: 0 5px;
+		align-items: center;
+		text-align: center;
+		position: absolute;
+	}
 }
-
 
 InventoryBar
 {

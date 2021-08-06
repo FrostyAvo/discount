@@ -17,5 +17,10 @@
 		CanHeadshot = false
 		WindupTime = 0.0
 		WindupSound = ""
+		ClipSize = 12
+		ReserveAmmo = 36
+		AmmoPerReload = 12
+		ReloadTime = 1.86
+		ReloadSound = ""
 	}
 }

@@ -21,7 +21,8 @@ namespace Discount.UI
 			RootPanel.AddChild<VoiceList>();
 			RootPanel.AddChild<KillFeed>();
 			RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
-			RootPanel.AddChild<Health>();
+			RootPanel.AddChild<HealthPanel>();
+			RootPanel.AddChild<AmmoPanel>();
 			RootPanel.AddChild<InventoryBar>();
 		}
 	}

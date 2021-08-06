@@ -96,12 +96,6 @@ namespace Discount.Weapons
 			}
 		}
 
-		/*public override void Reload()
-		{
-			(Owner as AnimEntity)?.SetAnimBool( "b_reload", true );
-			ViewModelEntity?.SetAnimBool( "reload", true );
-		}*/
-
 		[ClientRpc]
 		protected virtual void ShootEffects()
 		{

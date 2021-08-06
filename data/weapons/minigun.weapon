@@ -17,5 +17,11 @@
 		WindupTime = 0.87
 		WindupSound = "rust_smg.boltshut"
 		DeployTime = 0.5
+		ClipSize = 200
+		ReserveAmmo = 0
+		ReloadTime = 5.0
+		AmmoPerShot = 1
+		AmmoPerReload = 200
+		ReloadSound = ""
 	}
 }

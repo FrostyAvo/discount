@@ -17,5 +17,8 @@
 		DeployTime = 1.0
 		WindupTime = 0.0
 		WindupSound = ""
+		ClipSize = 1
+		ReserveAmmo = 25
+		ReloadTime = 0.0
 	}
 }

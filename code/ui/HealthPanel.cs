@@ -4,12 +4,12 @@ using Sandbox.UI.Construct;
 
 namespace Discount.UI
 {
-	public class Health : Panel
+	public class HealthPanel : Panel
 	{
 		public Label HealthLabel;
 		public Label TeamLabel;
 
-		public Health()
+		public HealthPanel()
 		{
 			HealthLabel = Add.Label( "100", "value" );
 			TeamLabel = Add.Label( "", "team-name" );

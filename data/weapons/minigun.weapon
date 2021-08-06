@@ -12,6 +12,10 @@
 		Damage = 9.0
 		Knockback = 10.0
 		SpreadAngle = 7.0
-		Range = 2500.0
+		Range = 4500.0
+		CanHeadshot = false
+		WindupTime = 0.87
+		WindupSound = "rust_smg.boltshut"
+		DeployTime = 0.5
 	}
 }

@@ -21,8 +21,6 @@ namespace Discount.Weapons
 
 			ViewModelEntity?.SetAnimBool( "attack", true );
 			CrosshairPanel?.CreateEvent( "fire" );
-
-			PlaySound( Data.PrimaryFireSound );
 		}
 	}
 }

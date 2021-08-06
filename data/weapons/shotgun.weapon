@@ -13,5 +13,9 @@
 		SpreadAngle = 8.0
 		Range = 2000.0
 		PrimaryFireRate = 1.6
+		DeployTime = 0.6
+		CanHeadshot = false
+		WindupTime = 0.0
+		WindupSound = ""
 	}
 }

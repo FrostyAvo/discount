@@ -13,5 +13,9 @@
 		Knockback = 20.0
 		SpreadAngle = 0.0
 		Range = 70.0
+		DeployTime = 0.5
+		CanHeadshot = false
+		WindupTime = 0.0
+		WindupSound = ""
 	}
 }

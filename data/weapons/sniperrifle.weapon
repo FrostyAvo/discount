@@ -14,5 +14,8 @@
 		SpreadAngle = 0.0
 		Range = 10000.0
 		CanHeadshot = true
+		DeployTime = 1.0
+		WindupTime = 0.0
+		WindupSound = ""
 	}
 }

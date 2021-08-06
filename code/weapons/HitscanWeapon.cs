@@ -28,6 +28,7 @@ namespace Discount.Weapons
 			(Owner as AnimEntity)?.SetAnimBool( "b_attack", true );
 
 			ShootEffects();
+			PlaySound( Data.PrimaryFireSound );
 
 			for ( int i = 0; i < Data.BulletsPerShot; i++ )
 			{
@@ -97,17 +98,6 @@ namespace Discount.Weapons
 			ViewModelEntity?.SetAnimBool( "reload", true );
 		}*/
 
-		public override void SimulateAnimator( PawnAnimator anim )
-		{
-			if ( Data == null )
-			{
-				return;
-			}
-
-			anim.SetParam( "holdtype", Data.HoldType );
-			anim.SetParam( "aimat_weight", 0.2f );
-		}
-
 		[ClientRpc]
 		protected virtual void ShootEffects()
 		{
@@ -118,8 +108,6 @@ namespace Discount.Weapons
 
 			ViewModelEntity?.SetAnimBool( "fire", true );
 			CrosshairPanel?.CreateEvent( "fire" );
-
-			PlaySound( Data.PrimaryFireSound );
 		}
 	}
 }

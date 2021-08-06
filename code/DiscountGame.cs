@@ -21,32 +21,28 @@ namespace Discount
 	[Library( "discount" )]
 	public partial class DiscountGame : Game
 	{
-		protected HudEntity<RootPanel> activeHud_;
+		protected MainHud mainHud_;
+		[Net, OnChangedCallback]
+		protected ClassSelectionUi ClassSelectionUi { get; set; }
+		[Net, OnChangedCallback]
+		protected TeamSelectionUi TeamSelectionUi { get; set; }
+
+		protected bool classSelectionUiEnabled_;
+		protected bool teamSelectionUiEnabled_;
 
 		[Net]
 		public Teams Teams { get; protected set; }
 
-		protected HudEntity<RootPanel> ActiveHud
-		{
-			get
-			{
-				return activeHud_;
-			}
-
-			set
-			{
-				if (activeHud_ != null)
-				{
-					activeHud_.Delete();
-				}
-
-				activeHud_ = value;
-			}
-		}
-
 		public DiscountGame()
 		{
 			Teams = new Teams();
+
+			if ( IsServer )
+			{
+				ClassSelectionUi = new ClassSelectionUi();
+				TeamSelectionUi = new TeamSelectionUi();
+				mainHud_ = new MainHud();
+			}
 		}
 
 		/// <summary>
@@ -63,8 +59,6 @@ namespace Discount
 				// Make bots automatically join a team since they can't navigate the team selection UI
 				if ( Teams.AutoAssignClient( client ) && IsServer )
 				{
-					ActiveHud = new MainHud();
-
 					JoinRandomClass( client );
 				}
 
@@ -117,6 +111,60 @@ namespace Discount
 			return ( ( client.SteamId >> 52 ) & 0b1111 ) == 4;
 		}
 
+		[ClientRpc]
+		protected void ShowClientMainHud()
+		{
+			ClassSelectionUi?.Disable();
+			TeamSelectionUi?.Disable();
+
+			classSelectionUiEnabled_ = false;
+			teamSelectionUiEnabled_ = false;
+		}
+
+		[ClientRpc]
+		protected void ShowClientTeamSelectionUi()
+		{
+			ClassSelectionUi?.Disable();
+			TeamSelectionUi?.Enable();
+
+			classSelectionUiEnabled_ = false;
+			teamSelectionUiEnabled_ = true;
+		}
+
+		[ClientRpc]
+		protected void ShowClientClassSelectionUi()
+		{
+			ClassSelectionUi?.Enable();
+			TeamSelectionUi?.Disable();
+
+			classSelectionUiEnabled_ = true;
+			teamSelectionUiEnabled_ = false;
+		}
+
+		protected void OnClassSelectionUiChanged()
+		{
+			if ( classSelectionUiEnabled_ )
+			{
+				ClassSelectionUi.Enable();
+			}
+			else
+			{
+				ClassSelectionUi.Disable();
+			}
+		}
+
+		protected void OnTeamSelectionUiChanged()
+		{
+			if ( teamSelectionUiEnabled_ )
+			{
+				TeamSelectionUi.Enable();
+			}
+			else
+			{
+				TeamSelectionUi.Disable();
+			}
+		}
+
 		[ServerCmd( "changeteam", Help = "Opens the team selection menu" )]
 		public static void ChangeTeamCommand()
 		{
@@ -140,10 +188,9 @@ namespace Discount
 			if ( discountGame.Teams.AssignClientToTeam( target, Team.Spectator )
 				|| discountGame.Teams.GetClientTeam( target ) == Team.Spectator )
 			{
-				if ( Host.IsServer
-					&& discountGame.ActiveHud is not TeamSelectionUi )
+				if ( Host.IsServer )
 				{
-					discountGame.ActiveHud = new TeamSelectionUi();
+					discountGame.ShowClientTeamSelectionUi( To.Single(target) );
 				}
 
 				if ( target.Pawn is not SpectatorPlayer )
@@ -212,7 +259,7 @@ namespace Discount
 			{
 				if ( Host.IsServer )
 				{
-					discountGame.ActiveHud = new MainHud();
+					discountGame.ShowClientMainHud( To.Single( target ) );
 				}
 
 				if ( target.Pawn is not SpectatorPlayer )
@@ -257,7 +304,7 @@ namespace Discount
 
 			if ( Host.IsServer )
 			{
-				discountGame.ActiveHud = new ClassSelectionUi();
+				discountGame.ShowClientClassSelectionUi( To.Single( target ) );
 			}
 
 			if ( target.Pawn is not SpectatorPlayer )
@@ -318,7 +365,7 @@ namespace Discount
 			{
 				target.Pawn?.Delete();
 
-				discountGame.ActiveHud = new MainHud();
+				discountGame.ShowClientMainHud( To.Single( target ) );
 			}
 
 			classPlayer.Team = targetTeam;

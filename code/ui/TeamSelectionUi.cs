@@ -26,6 +26,20 @@ namespace Discount.UI
 			buttonPanel.AddChild( new TeamSelectButton( (Team)(-1) ) );
 			buttonPanel.AddChild( new TeamSelectButton( Team.Spectator ) );
 		}
+
+		public void Enable()
+		{
+			RootPanel.Style.Display = DisplayMode.Flex;
+			RootPanel.Style.PointerEvents = "all";
+			RootPanel.Style.Dirty();
+		}
+
+		public void Disable()
+		{
+			RootPanel.Style.Display = DisplayMode.None;
+			RootPanel.Style.PointerEvents = "none";
+			RootPanel.Style.Dirty();
+		}
 	}
 }
 

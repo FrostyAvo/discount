@@ -58,7 +58,8 @@ namespace Discount.UI
 		{
 			Team clientTeam = Team.Unassigned;
 
-			if ( Game.Current is DiscountGame discountGame )
+			if ( Game.Current is DiscountGame discountGame
+				&& discountGame.Teams != null )
 			{
 				clientTeam = discountGame.Teams.GetClientTeam( Local.Client );
 			}

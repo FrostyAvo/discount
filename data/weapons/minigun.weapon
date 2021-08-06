@@ -10,7 +10,7 @@
 		BulletsPerShot = 4
 		PrimaryFireRate = 9.5
 		Damage = 9.0
-		Knockback = 10.0
+		Knockback = 200.0
 		SpreadAngle = 7.0
 		Range = 4500.0
 		CanHeadshot = false

@@ -6,6 +6,8 @@ namespace Discount
 {
 	public partial class ClassPlayer : TeamPlayer
 	{
+		protected DamageInfo lastDamage_;
+
 		[Net, Predicted]
 		public ClassData Data { get; protected set; }
 
@@ -132,7 +134,12 @@ namespace Discount
 		{
 			base.OnKilled();
 
-			BecomeRagdollOnClient( Velocity, DamageFlags.Blunt, Position, Vector3.Zero, 0 );
+			BecomeRagdollOnClient(
+				Velocity,
+				lastDamage_.Flags,
+				lastDamage_.Position,
+				lastDamage_.Force,
+				lastDamage_.BoneIndex );
 
 			Camera = new SpectateRagdollCamera();
 			Controller = null;
@@ -157,6 +164,8 @@ namespace Discount
 		public override void TakeDamage( DamageInfo info )
 		{
 			TookDamage( info.Flags, info.Position, info.Force );
+
+			lastDamage_ = info;
 
 			base.TakeDamage( info );
 		}

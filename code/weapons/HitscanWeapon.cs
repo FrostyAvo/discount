@@ -49,8 +49,10 @@ namespace Discount.Weapons
 					continue;
 				}
 
+				TraceResult traceResult = traceResults.Current;
+
 				// Don't hurt teammates
-				if ( traceResults.Current.Entity is TeamPlayer hitTeamPlayer
+				if ( traceResult.Entity is TeamPlayer hitTeamPlayer
 					&& Owner is TeamPlayer ownerTeamPlayer
 					&& hitTeamPlayer.Team == ownerTeamPlayer.Team )
 				{
@@ -61,12 +63,12 @@ namespace Discount.Weapons
 				{
 					using ( Prediction.Off() )
 					{
-						traceResults.Current.Surface.DoBulletImpact( traceResults.Current );
+						traceResult.Surface.DoBulletImpact( traceResult );
 					}
 				}
 
 				// Don't damage if there's nothing to damage or if we're not the server
-				if ( !IsServer || !traceResults.Current.Entity.IsValid())
+				if ( !IsServer || !traceResult.Entity.IsValid())
 				{
 					continue;
 				}
@@ -75,7 +77,7 @@ namespace Discount.Weapons
 
 				// Apply headshot damage if relevant
 				if ( Data.CanHeadshot
-					&& traceResults.Current.Entity is Player hitPlayer
+					&& traceResult.Entity is Player hitPlayer
 					&& hitPlayer.GetHitboxGroup( traceResults.Current.HitboxIndex ) == 1 )
 				{
 					damageToDeal *= 3f;
@@ -83,11 +85,13 @@ namespace Discount.Weapons
 
 				using ( Prediction.Off() )
 				{
-					traceResults.Current.Entity.TakeDamage(
+					traceResult.Entity.TakeDamage(
 						DamageInfo.FromBullet(
-							traceResults.Current.EndPos,
+							traceResult.EndPos,
 							pelletDirection * Data.Knockback,
-							damageToDeal ).WithAttacker( Owner, this ) );
+							damageToDeal )
+						.WithAttacker( Owner, this )
+						.UsingTraceResult( traceResult ) );
 				}
 			}
 		}

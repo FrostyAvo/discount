@@ -8,7 +8,7 @@
 	BulletsPerShot(int) : "Bullets Per Shot" : "1"
 	PrimaryFireRate(float) : "Primary Fire Rate" : "1"
 	Damage(float) : "Damage Per Bullet" : "5"
-	Knockback(float) : "Knockback Per Bullet" : "0"
+	Knockback(float) : "Knockback Per Bullet" : "100"
 	SpreadAngle(float) : "Spread Cone Angle" : "0"
 	Range(float) : "Range" : "2000"
 	DeployTime(float) : "Deploy Time" : "0"

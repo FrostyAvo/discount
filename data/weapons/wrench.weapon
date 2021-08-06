@@ -10,7 +10,7 @@
 		BulletsPerShot = 1
 		PrimaryFireRate = 1.25
 		Damage = 65.0
-		Knockback = 20.0
+		Knockback = 200.0
 		SpreadAngle = 0.0
 		Range = 70.0
 		DeployTime = 0.5

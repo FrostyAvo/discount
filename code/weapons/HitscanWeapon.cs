@@ -52,9 +52,9 @@ namespace Discount.Weapons
 				TraceResult traceResult = traceResults.Current;
 
 				// Don't hurt teammates
-				if ( traceResult.Entity is TeamPlayer hitTeamPlayer
-					&& Owner is TeamPlayer ownerTeamPlayer
-					&& hitTeamPlayer.Team == ownerTeamPlayer.Team )
+				if ( traceResult.Entity is ITeamEntity hitTeamEntity
+					&& Owner is ITeamEntity ownerTeamEntity
+					&& hitTeamEntity.Team == ownerTeamEntity.Team )
 				{
 					continue;
 				}

@@ -11,6 +11,8 @@ namespace Discount
 		[Net, Predicted]
 		public ClassData Data { get; protected set; }
 
+		public override int MaxHealth => Data != null ? Data.Health : base.MaxHealth;
+
 		public ClassPlayer()
 		{
 			Inventory = new ClassInventory( this );
@@ -112,7 +114,7 @@ namespace Discount
 
 			SimulateActiveChild( cl, ActiveChild );
 
-			if ( Input.Pressed( InputButton.View ) )
+			/*if ( Input.Pressed( InputButton.View ) )
 			{
 				if ( Camera is not FirstPersonCamera )
 				{
@@ -122,7 +124,7 @@ namespace Discount
 				{
 					Camera = new ThirdPersonCamera();
 				}
-			}
+			}*/
 
 			if ( Input.Pressed( InputButton.Flashlight ) )
 			{
@@ -148,6 +150,11 @@ namespace Discount
 			EnableDrawing = false;
 
 			Inventory.DeleteContents();
+		}
+
+		public override void GiveAmmo( float percentage )
+		{
+			(Inventory as ClassInventory)?.GiveAmmo( percentage );
 		}
 
 		public void Wear( string model )

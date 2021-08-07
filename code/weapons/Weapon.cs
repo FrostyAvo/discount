@@ -210,6 +210,17 @@ namespace Discount.Weapons
 			TimeSinceDeployed = 0;
 		}
 
+		public void GiveAmmo( float percentage )
+		{
+			if ( percentage < 0
+				|| Data == null )
+			{
+				return;
+			}
+
+			AmmoInReserve += Math.Min( (int)( percentage * Data.ReserveAmmo ), Data.ReserveAmmo - AmmoInReserve );
+		}
+
 		protected void OnSlotChanged()
 		{
 			// This syncs inventories on clients to the corresponding inventories on the server

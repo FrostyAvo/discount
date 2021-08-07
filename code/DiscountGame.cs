@@ -66,6 +66,11 @@ namespace Discount
 			}
 
 			ChangeTeam(client);
+
+			if ( IsServer )
+			{
+				new Dispenser( Team.Red ).Spawn();
+			}
 		}
 
 		public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )

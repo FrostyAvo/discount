@@ -21,6 +21,7 @@
 		ReserveAmmo = 36
 		AmmoPerReload = 12
 		ReloadTime = 1.86
-		ReloadSound = ""
+		ReloadSound = "rust_smg.clipin"
+		AmmoPerShot = 1
 	}
 }

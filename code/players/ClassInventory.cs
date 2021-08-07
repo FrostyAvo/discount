@@ -62,6 +62,14 @@ namespace Discount
 			return true;
 		}
 
+		public virtual void GiveAmmo( float percentage )
+		{
+			foreach ( Weapon weapon in Contents )
+			{
+				weapon.GiveAmmo( percentage );
+			}
+		}
+
 		/// <summary>
 		/// Return true if this item belongs in the inventory
 		/// </summary>

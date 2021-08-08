@@ -5,7 +5,7 @@
 		Name = "Batlight"
 		ViewModelPath = "weapons/rust_flashlight/v_rust_flashlight.vmdl"
 		WorldModelPath = "weapons/rust_pistol/rust_pistol.vmdl"
-		PrimaryFireSound = "rust_flashlight.attack"
+		PrimaryFireSound = "weapons/rust_flashlight/sounds/rust_flashlight.attack.sound"
 		HoldType = 4
 		BulletsPerShot = 1
 		PrimaryFireRate = 2.0

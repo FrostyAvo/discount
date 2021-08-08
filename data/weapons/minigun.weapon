@@ -15,7 +15,7 @@
 		Range = 4500.0
 		CanHeadshot = false
 		WindupTime = 0.87
-		WindupSound = "rust_smg.boltshut"
+		WindupSound = "drone.movement_start"
 		DeployTime = 0.5
 		ClipSize = 200
 		ReserveAmmo = 0

@@ -7,21 +7,17 @@ namespace Discount
 		[Net]
 		protected ResupplyField ResupplyField { get; set; }
 
-		public Dispenser() : this( Team.Unassigned )
+		public Dispenser()
 		{
-
-		}
-
-		public Dispenser( Team team )
-		{
-			Team = team;
+			
 		}
 
 		public override void Spawn()
 		{
 			base.Spawn();
 
-			SetModel( "models/rust_props/electrical_boxes/electrical_box_c.vmdl" );
+			SetModel( "models/rust_props/electrical_boxes/electrical_box_b.vmdl" );
+			Scale = 0.8f;
 
 			MoveType = MoveType.Physics;
 			CollisionGroup = CollisionGroup.Interactive;
@@ -31,13 +27,24 @@ namespace Discount
 
 			RenderColor = Teams.GetLightTeamColor( Team );
 
-			Transmit = TransmitType.Always;
-
 			if ( IsServer )
 			{
-				ResupplyField = new ResupplyField( Team );
-				ResupplyField.Parent = this;
-				ResupplyField.Spawn();
+				(Owner as TeamPlayer)?.AddOwnedBuilding( this );
+
+				if ( ResupplyField == null )
+				{
+					ResupplyField = new ResupplyField( Team )
+					{
+						Parent = this,
+						Position = Position + Vector3.Up * 30f
+					};
+
+					ResupplyField.Spawn();
+				}
+				else
+				{
+					ResupplyField.Team = Team;
+				}
 			}
 		}
 
@@ -57,6 +64,8 @@ namespace Discount
 		protected override void OnDestroy()
 		{
 			base.OnDestroy();
+
+			(Owner as TeamPlayer)?.RemoveOwnedBuilding( this );
 
 			if ( IsServer )
 			{

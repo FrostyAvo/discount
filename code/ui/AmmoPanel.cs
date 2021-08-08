@@ -22,7 +22,7 @@ namespace Discount.UI
 			var player = Local.Pawn;
 
 			if ( player == null
-				|| player.ActiveChild is not Weapon activeWeapon
+				|| player.ActiveChild is not AssetWeapon activeWeapon
 				|| activeWeapon is MeleeWeapon )
 			{
 				if ( Style.Display != DisplayMode.None )

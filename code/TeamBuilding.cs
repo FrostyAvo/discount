@@ -4,6 +4,7 @@ namespace Discount
 {
 	public abstract partial class TeamBuilding : ModelEntity, ITeamEntity
 	{
-		[Net, Predicted] public Team Team { get; set; }
+		[Net]
+		public Team Team { get; set; }
 	}
 }

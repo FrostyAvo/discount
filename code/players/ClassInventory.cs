@@ -1,18 +1,19 @@
 ﻿using Discount.Weapons;
 
 using Sandbox;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Discount
 {
 	public class ClassInventory : IBaseInventory
 	{
 		public Entity Owner { get; init; }
-		public Weapon[] Contents { get; protected set; }
+		public List<Weapon> Contents { get; protected set; } = new List<Weapon>();
 
 		public ClassInventory( Entity owner )
 		{
 			Owner = owner;
-			Contents = new Weapon[3];
 		}
 
 		public virtual void Fill( Weapon[] contents )
@@ -24,9 +25,9 @@ namespace Discount
 				return;
 			}
 
-			Contents = contents;
+			Contents = new List<Weapon>(contents);
 
-			for ( int i = 0; i < Contents.Length; i++ )
+			for ( int i = 0; i < Contents.Count; i++ )
 			{
 				Weapon thisWeapon = Contents[i];
 
@@ -43,7 +44,7 @@ namespace Discount
 				thisWeapon.OnCarryStart( Owner );
 			}
 
-			if ( Contents.Length > 0 )
+			if ( Contents.Count > 0 )
 			{
 				SetActive( Contents[0] );
 			}
@@ -51,10 +52,14 @@ namespace Discount
 
 		public virtual bool FillSlot( int slot, Weapon weapon )
 		{
-			if ( slot < 0
-				|| slot >= Contents.Length )
+			if ( slot < 0 )
 			{
 				return false;
+			}
+
+			if ( slot >= Contents.Count )
+			{
+				Contents.AddRange( Enumerable.Repeat<Weapon>( null, slot - ( Contents.Count - 1 ) ) );
 			}
 
 			Contents[slot] = weapon;
@@ -66,7 +71,10 @@ namespace Discount
 		{
 			foreach ( Weapon weapon in Contents )
 			{
-				weapon.GiveAmmo( percentage );
+				if ( weapon is AssetWeapon assetWeapon )
+				{
+					assetWeapon.GiveAmmo( percentage );
+				}
 			}
 		}
 
@@ -85,7 +93,7 @@ namespace Discount
 		{
 			Host.AssertServer();
 
-			for ( int i = 0; i < Contents.Length; i++ )
+			for ( int i = 0; i < Contents.Count; i++ )
 			{
 				Contents[i].Delete();
 				Contents[i] = null;
@@ -97,7 +105,7 @@ namespace Discount
 		/// </summary>
 		public virtual Entity GetSlot( int i )
 		{
-			if ( i < 0 || i >= Contents.Length )
+			if ( i < 0 || i >= Contents.Count )
 			{
 				return null;
 			}
@@ -108,7 +116,7 @@ namespace Discount
 		/// <summary>
 		/// Returns the number of items in the inventory
 		/// </summary>
-		public virtual int Count() => Contents.Length;
+		public virtual int Count() => Contents.Count;
 
 		/// <summary>
 		/// Returns the index of the currently active child
@@ -181,7 +189,7 @@ namespace Discount
 		/// </summary>
 		public virtual bool SetActiveSlot( int i, bool evenIfEmpty = false )
 		{
-			if ( i < 0 || i >= Contents.Length )
+			if ( i < 0 || i >= Contents.Count )
 			{
 				return false;
 			}

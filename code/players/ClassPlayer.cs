@@ -45,53 +45,67 @@ namespace Discount
 				(Controller as PlayerController).DefaultSpeed = Data.MoveSpeed;
 				Health = Data.Health;
 
-				if ( Data.HatPath != "" )
+				if ( Data.Hat != "" )
 				{
-					Wear( Data.HatPath );
+					Wear( Data.Hat );
 				}
 
 				if ( Team == Team.Red )
 				{
-					if ( Data.RedShirtPath != "" )
+					if ( Data.RedShirt != "" )
 					{
-						Wear( Data.RedShirtPath );
+						Wear( Data.RedShirt );
 						SetBodyGroup( "Chest", 1 );
 					}
 
-					if ( Data.RedPantsPath != "" )
+					if ( Data.RedPants != "" )
 					{
-						Wear( Data.RedPantsPath );
+						Wear( Data.RedPants );
 						SetBodyGroup( "Legs", 1 );
 					}
 				}
 				else
 				{
-					if ( Data.BlueShirtPath != "" )
+					if ( Data.BlueShirt != "" )
 					{
-						Wear( Data.BlueShirtPath );
+						Wear( Data.BlueShirt );
 						SetBodyGroup( "Chest", 1 );
 					}
 
-					if ( Data.BluePantsPath != "" )
+					if ( Data.BluePants != "" )
 					{
-						Wear( Data.BluePantsPath );
+						Wear( Data.BluePants );
 						SetBodyGroup( "Legs", 1 );
 					}
 				}
 
-				if ( Data.ShoesPath != "" )
+				if ( Data.Shoes != "" )
 				{
-					Wear( Data.ShoesPath );
+					Wear( Data.Shoes );
 					SetBodyGroup( "Feet", 1 );
 				}
 
-				(Inventory as ClassInventory)?.Fill(
+				if ( Data.SpecialAbility == ClassSpecialAbility.Buildings )
+				{
+					(Inventory as ClassInventory)?.Fill(
+						new Weapon[]
+						{
+							new HitscanWeapon( Data.PrimaryWeapon ),
+							new HitscanWeapon( Data.SecondaryWeapon ),
+							new MeleeWeapon( Data.MeleeWeapon ),
+							new DispenserBuilder()
+						} );
+				}
+				else
+				{
+					(Inventory as ClassInventory)?.Fill(
 					new Weapon[]
 					{
-					new HitscanWeapon( Data.PrimaryWeapon ),
-					new HitscanWeapon( Data.SecondaryWeapon ),
-					new MeleeWeapon( Data.MeleeWeapon )
+						new HitscanWeapon( Data.PrimaryWeapon ),
+						new HitscanWeapon( Data.SecondaryWeapon ),
+						new MeleeWeapon( Data.MeleeWeapon )
 					} );
+				}
 			}
 		}
 

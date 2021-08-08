@@ -1,10 +1,17 @@
 @BaseClass = weapon : "A weapon"
 [
 	Name(string) : "Weapon Name" : "Weapon"
-	ViewModelPath(string) : "View Model Path" : ""
-	WorldModelPath(string) : "World Model Path" : ""
+	ViewModelPath(resource:vmdl) : "View Model"
+	WorldModelPath(resource:vmdl) : "World Model"
 	PrimaryFireSound(string) : "Primary Fire Sound" : ""
-	HoldType(int) : "Hold Type" : "0"
+	HoldType(choices) : "Hold Type" : "0" =
+	[
+		0 : "None"
+		1 : "Pistol"
+		2 : "SMG"
+		3 : "Shotgun"
+		4 : "Item"
+	]
 	BulletsPerShot(int) : "Bullets Per Shot" : "1"
 	PrimaryFireRate(float) : "Primary Fire Rate" : "1"
 	AmmoPerShot(int) : "Ammo Per Shot" : "1"

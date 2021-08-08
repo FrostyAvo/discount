@@ -8,11 +8,12 @@
 		PrimaryWeapon = "minigun"
 		SecondaryWeapon = "shotgun"
 		MeleeWeapon = "fists"
-		HatPath = ""
-		RedShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
-		BlueShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
-		RedPantsPath = "models/citizen_clothes/trousers/trousers.smarttan.vmdl"
-		BluePantsPath = "models/citizen_clothes/trousers/trousers.police.vmdl"
-		ShoesPath = "models/citizen_clothes/shoes/shoes.police.vmdl"
+		SpecialAbility = "0"
+		Hat = resource:""
+		RedShirt = resource:"models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
+		BlueShirt = resource:"models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
+		RedPants = resource:"models/citizen_clothes/trousers/trousers.smarttan.vmdl"
+		BluePants = resource:"models/citizen_clothes/trousers/trousers.police.vmdl"
+		Shoes = resource:"models/citizen_clothes/shoes/shoes.police.vmdl"
 	}
 }

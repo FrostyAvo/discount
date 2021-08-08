@@ -8,11 +8,12 @@
 		PrimaryWeapon = "shotgun"
 		SecondaryWeapon = "pistol"
 		MeleeWeapon = "bat"
-		HatPath = "models/citizen_clothes/hat/hat_leathercapnobadge.vmdl"
-		RedShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
-		BlueShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
-		RedPantsPath = "models/citizen_clothes/trousers/trousers_tracksuit.vmdl"
-		BluePantsPath = "models/citizen_clothes/trousers/trousers_tracksuitblue.vmdl"
-		ShoesPath = "models/citizen_clothes/shoes/trainers.vmdl"
+		SpecialAbility = "0"
+		Hat = resource:"models/citizen_clothes/hat/hat_leathercapnobadge.vmdl"
+		RedShirt = resource:"models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
+		BlueShirt = resource:"models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
+		RedPants = resource:"models/citizen_clothes/trousers/trousers_tracksuit.vmdl"
+		BluePants = resource:"models/citizen_clothes/trousers/trousers_tracksuitblue.vmdl"
+		Shoes = resource:"models/citizen_clothes/shoes/trainers.vmdl"
 	}
 }

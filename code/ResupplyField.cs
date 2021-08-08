@@ -6,13 +6,12 @@ namespace Discount
 {
 	public partial class ResupplyField : ModelEntity
 	{
-		protected readonly List<TeamPlayer> touchingPlayers_ = new List<TeamPlayer>();
+		protected readonly List<TeamPlayer> touchingPlayers_;
 		protected readonly float resupplyDelay_ = 1f;
 		protected readonly float fieldRadius_ = 50f;
 		protected TimeSince timeSinceGaveSupplies_;
 
-		[Net]
-		public Team Team { get; protected set; }
+		public Team Team;
 
 		public ResupplyField()
 		{
@@ -28,7 +27,7 @@ namespace Discount
 		{
 			base.Spawn();
 
-			SetupPhysicsFromSphere( PhysicsMotionType.Dynamic, Position, fieldRadius_ );
+			SetupPhysicsFromSphere( PhysicsMotionType.Static, Position, fieldRadius_ );
 
 			timeSinceGaveSupplies_ = 0;
 
@@ -45,7 +44,7 @@ namespace Discount
 			{
 				timeSinceGaveSupplies_ = 0;
 
-				Particles.Create( "particles/water_bob.vpcf", Position + Vector3.Up * 30f );
+				Particles.Create( "particles/water_bob.vpcf", Position );
 				PlaySound( "resupply" );
 
 				foreach ( TeamPlayer touchingPlayer in touchingPlayers_ )

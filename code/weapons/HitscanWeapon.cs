@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Discount.Weapons
 {
-	public partial class HitscanWeapon : Weapon
+	public partial class HitscanWeapon : AssetWeapon
 	{
 		public override float PrimaryRate => Data != null ? Data.PrimaryFireRate : 1f;
 		public override string ViewModelPath => Data != null ? Data.ViewModelPath : "";

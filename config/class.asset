@@ -3,13 +3,18 @@
 	Name(string) : "Class Name" : "Class"
 	Health(int) : "Maximum Health" : "125"
 	MoveSpeed(float) : "Movement Speed" : "250"
+	SpecialAbility(choices) : "Special Ability" : "0" =
+	[
+		0 : "None"
+		1 : "Buildings"
+	]
 	PrimaryWeapon(string) : "Primary Weapon" : ""
 	SecondaryWeapon(string) : "Secondary Weapon" : ""
 	MeleeWeapon(string) : "Melee Weapon" : ""
-	HatPath(string) : "Hat Path" : ""
-	RedShirtPath(string) : "Red Shirt Path" : ""
-	BlueShirtPath(string) : "Blue Shirt Path" : ""
-	RedPantsPath(string) : "Red Pants Path" : ""
-	BluePantsPath(string) : "Blue Pants Path" : ""
-	ShoesPath(string) : "Shoes Path" : ""
+	Hat(resource:vmdl) : "Hat" : ""
+	RedShirt(resource:vmdl) : "Red Shirt" : ""
+	BlueShirt(resource:vmdl) : "Blue Shirt" : ""
+	RedPants(resource:vmdl) : "Red Pants" : ""
+	BluePants(resource:vmdl) : "Blue Pants" : ""
+	Shoes(resource:vmdl) : "Shoes" : ""
 ]

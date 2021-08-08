@@ -1,11 +1,17 @@
 ﻿using Sandbox;
+
 using System;
+using System.Collections.Generic;
 
 namespace Discount
 {
 	public abstract partial class TeamPlayer : Player, ITeamEntity
 	{
-		[Net, Predicted] public Team Team { get; set; }
+		[Net, Predicted]
+		public Team Team { get; set; }
+
+		[Net]
+		protected List<TeamBuilding> OwnedBuildings { get; set; }
 
 		public virtual int MaxHealth => 100;
 
@@ -58,6 +64,46 @@ namespace Discount
 		public virtual void GiveAmmo( float percentage )
 		{
 			
+		}
+
+		public void AddOwnedBuilding( TeamBuilding building )
+		{
+			if ( !OwnedBuildings.Contains( building ) )
+			{
+				OwnedBuildings.Add( building );
+			}
+		}
+
+		public void RemoveOwnedBuilding( TeamBuilding building )
+		{
+			if ( OwnedBuildings.Contains( building ) )
+			{
+				OwnedBuildings.Remove( building );
+			}
+		}
+
+		public bool OwnsBuildingOfType<T>() where T : TeamBuilding
+		{
+			foreach ( TeamBuilding building in OwnedBuildings )
+			{
+				if ( building.GetType() == typeof(T) )
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		protected override void OnDestroy()
+		{
+			foreach ( TeamBuilding building in OwnedBuildings )
+			{
+				if ( IsServer )
+				{
+					building?.Delete();
+				}
+			}
 		}
 	}
 }

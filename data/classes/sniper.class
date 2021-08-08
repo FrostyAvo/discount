@@ -8,11 +8,12 @@
 		PrimaryWeapon = "sniperrifle"
 		SecondaryWeapon = "pistol"
 		MeleeWeapon = "kukri"
-		HatPath = "models/citizen_clothes/hair/hair_malestyle02.vmdl"
-		RedShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
-		BlueShirtPath = "models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
-		RedPantsPath = "models/citizen_clothes/shoes/shorts.cargo.vmdl"
-		BluePantsPath = "models/citizen_clothes/shoes/shorts.cargo.vmdl"
-		ShoesPath = "models/citizen_clothes/shoes/smartshoes/smartshoes.vmdl"
+		SpecialAbility = "0"
+		Hat = resource:"models/citizen_clothes/hair/hair_malestyle02.vmdl"
+		RedShirt = resource:"models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
+		BlueShirt = resource:"models/citizen_clothes/shirt/shirt_longsleeve.scientist.vmdl"
+		RedPants = resource:"models/citizen_clothes/shoes/shorts.cargo.vmdl"
+		BluePants = resource:"models/citizen_clothes/shoes/shorts.cargo.vmdl"
+		Shoes = resource:"models/citizen_clothes/shoes/smartshoes/smartshoes.vmdl"
 	}
 }

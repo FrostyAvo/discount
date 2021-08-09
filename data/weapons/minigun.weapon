@@ -2,7 +2,7 @@
 {
 	data = 
 	{
-		Name = "MiniSMG"
+		Name = "Subminigun"
 		ViewModelPath = "weapons/rust_smg/v_rust_smg.vmdl"
 		WorldModelPath = "weapons/rust_smg/rust_smg.vmdl"
 		PrimaryFireSound = "rust_smg.shoot"
@@ -17,11 +17,11 @@
 		WindupTime = 0.87
 		WindupSound = "drone.movement_start"
 		DeployTime = 0.5
-		ClipSize = 200
-		ReserveAmmo = 0
-		ReloadTime = 5.0
+		ClipSize = 1
+		ReserveAmmo = 200
+		ReloadTime = 0.0
 		AmmoPerShot = 1
-		AmmoPerReload = 200
+		AmmoPerReload = 1
 		ReloadSound = ""
 	}
 }

@@ -105,6 +105,16 @@ namespace Discount
 			pawn.Transform = spawnpoint.Transform;
 		}
 
+		public static void Reset()
+		{
+			ControlPoint.ResetPoints();
+
+			foreach ( Client client in Client.All )
+			{
+				(client.Pawn as Player)?.Respawn();
+			}
+		}
+
 		public static bool ClientIsBot( Client client )
 		{
 			// Bot clients have a fake SteamID with the Steam account type set to 4 (AnonGameServer)

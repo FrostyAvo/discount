@@ -13,7 +13,7 @@ namespace Discount.UI
 		{
 			HealthLabel = Add.Label( "100", "value" );
 			TeamLabel = Add.Label( "", "team-name" );
-			Add.Label( "F To Change", "team-change-hint" );
+			Add.Label( "Press F To Change Team", "team-change-hint" );
 		}
 
 		public override void Tick()

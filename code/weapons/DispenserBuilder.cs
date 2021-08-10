@@ -146,5 +146,12 @@ namespace Discount.Weapons
 				PreviewHologram?.Delete();
 			}
 		}
+
+		public override void ActiveEnd( Entity ent, bool dropped )
+		{
+			base.ActiveEnd( ent, dropped );
+
+			PreviewHologram.EnableDrawing = false;
+		}
 	}
 }

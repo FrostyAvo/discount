@@ -24,6 +24,7 @@ namespace Discount.UI
 			RootPanel.AddChild<HealthPanel>();
 			RootPanel.AddChild<AmmoPanel>();
 			RootPanel.AddChild<InventoryBar>();
+			RootPanel.AddChild<ControlPointBar>();
 		}
 	}
 

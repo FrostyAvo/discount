@@ -8,6 +8,6 @@ namespace Discount
 	public class TeamSpawnPoint : Entity
 	{
 		[Property( Title = "Team" )]
-		public int TeamIndex { get; set; } = 0;
+		public Team Team { get; set; } = Team.Unassigned;
 	}
 }

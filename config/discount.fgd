@@ -9,13 +9,60 @@
 ]
 
 // 
+// Discount.CaptureArea : Sandbox.ModelEntity 
+// 
+@SolidClass 
+metadata
+{
+	auto_apply_material = "materials/tools/toolstrigger.vmat"
+}
+= trigger_capture_area : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	controlpoint(string) : "Control Point" :  : ""
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+// 
+// Discount.ControlPoint : Sandbox.Entity 
+// 
+@PointClass 
+metadata
+{
+	entity_tool_name = "Control Point"
+	entity_tool_group = "Logic"
+	entity_tool_tip = "Defines a control point players can capture for their team."
+}
+= team_control_point : ""
+[
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	defaultowner(choices) : "Default Owner" : 0 : "" = [
+		0 : "Unassigned"
+		1 : "Spectator"
+		2 : "Red"
+		3 : "Blue"
+	]
+	index(integer) : "Control Point Index" : 0 : ""
+	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+]
+
+// 
 // Discount.TeamBarrier : Sandbox.ModelEntity 
 // 
 @SolidClass = func_respawnroomvisualizer : ""
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
-	teamindex(integer) : "Team" : 0 : ""
+	team(choices) : "Team" : 0 : "" = [
+		0 : "Unassigned"
+		1 : "Spectator"
+		2 : "Red"
+		3 : "Blue"
+	]
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 
 	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
@@ -35,7 +82,12 @@ metadata
 [
 	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
 	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
-	teamindex(integer) : "Team" : 0 : ""
+	team(choices) : "Team" : 0 : "" = [
+		0 : "Unassigned"
+		1 : "Spectator"
+		2 : "Red"
+		3 : "Blue"
+	]
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
 ]
 

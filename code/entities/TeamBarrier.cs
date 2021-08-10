@@ -7,7 +7,7 @@ namespace Discount
 	public class TeamBarrier : ModelEntity
 	{
 		[Property( Title = "Team" )]
-		public int TeamIndex { get; protected set; } = 0;
+		public Team Team { get; protected set; } = Team.Unassigned;
 
 		public override void Spawn()
 		{
@@ -18,7 +18,7 @@ namespace Discount
 			EnableSolidCollisions = false;
 			EnableTouch = true;
 			EnableDrawing = true;
-			RenderColor = Teams.GetLightTeamColor( (Team)TeamIndex );
+			RenderColor = Teams.GetLightTeamColor( Team );
 		}
 
 		public override void StartTouch( Entity other )
@@ -48,7 +48,7 @@ namespace Discount
 		protected void AddToucher( TeamPlayer toucher )
 		{
 			if ( !toucher.IsValid()
-				|| (int)toucher.Team == TeamIndex )
+				|| toucher.Team == Team )
 			{
 				return;
 			}

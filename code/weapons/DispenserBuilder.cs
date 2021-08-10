@@ -25,13 +25,10 @@ namespace Discount.Weapons
 			{
 				PreviewHologram = new BuildingPreviewHologram();
 				PreviewHologram.Scale = 0.8f;
+				PreviewHologram.Owner = this;
 
 				PreviewHologram.SetModel( "models/rust_props/electrical_boxes/electrical_box_b.vmdl" );
 
-				PreviewHologram.EnableDrawing = false;
-			}
-			else
-			{
 				PreviewHologram.EnableDrawing = false;
 			}
 		}
@@ -48,51 +45,52 @@ namespace Discount.Weapons
 				return;
 			}
 
-			if ( IsServer )
+			Vector3 traceStart = Owner.EyePos + Rotation.FromYaw( Owner.EyeRot.Yaw() ).Forward * 60f;
+
+			IEnumerator<TraceResult> traceResults = TraceBullet(
+				traceStart,
+				traceStart + Vector3.Down * 80f
+				).GetEnumerator();
+
+			// Only grab the first trace result and reject traces that didn't hit
+			if ( !traceResults.MoveNext() || !traceResults.Current.Hit )
 			{
-				IEnumerator<TraceResult> traceResults = TraceBullet(
-					Owner.EyePos,
-					Owner.EyePos + Owner.EyeRot.Forward * 200f
-					).GetEnumerator();
+				PreviewHologram.EnableDrawing = false;
 
-				// Only grab the first trace result and reject traces that didn't hit
-				if ( !traceResults.MoveNext() || !traceResults.Current.Hit )
-				{
-					PreviewHologram.EnableDrawing = false;
-
-					return;
-				}
-
-				TraceResult traceResult = traceResults.Current;
-
-				if ( !traceResult.Entity.IsWorld
-					|| Vector3.GetAngle( traceResult.Normal, Vector3.Up ) > 45f )
-				{
-					PreviewHologram.RenderColorAndAlpha = new Color32(255, 0, 0, 150);
-				}
-				else
-				{
-					PreviewHologram.RenderColorAndAlpha = new Color32( 0, 255, 0, 150 );
-				}
-
-				PreviewHologram.Position = traceResult.EndPos;
-				PreviewHologram.Rotation = Rotation.FromYaw( Rotation.Yaw() + 90f );
-
-				PreviewHologram.EnableDrawing = true;
+				return;
 			}
+
+			TraceResult traceResult = traceResults.Current;
+
+			if ( !traceResult.Entity.IsWorld
+				|| Vector3.GetAngle( traceResult.Normal, Vector3.Up ) > 45f )
+			{
+				PreviewHologram.RenderColorAndAlpha = new Color32( 255, 0, 0, 150 );
+			}
+			else
+			{
+				PreviewHologram.RenderColorAndAlpha = new Color32( 0, 255, 0, 150 );
+			}
+
+			PreviewHologram.Position = traceResult.EndPos;
+			PreviewHologram.Rotation = Rotation.FromYaw( Rotation.Yaw() + 90f );
+
+			PreviewHologram.EnableDrawing = true;
 		}
 
 		public override void AttackPrimary()
 		{
-			// No point doing any of this on the client since the server needs to create the dispenser anyway
+			// No point doing any of this on the client since the server is going to create the dispenser anyway
 			if ( !IsServer )
 			{
 				return;
 			}
 
+			Vector3 traceStart = Owner.EyePos + Rotation.FromYaw( Owner.EyeRot.Yaw() ).Forward * 60f;
+
 			IEnumerator<TraceResult> traceResults = TraceBullet(
-				Owner.EyePos,
-				Owner.EyePos + Owner.EyeRot.Forward * 200f
+				traceStart,
+				traceStart + Vector3.Down * 80f
 				).GetEnumerator();
 
 			// Only grab the first trace result and reject traces that didn't hit

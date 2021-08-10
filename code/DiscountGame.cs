@@ -88,7 +88,7 @@ namespace Discount
 									.OfType<TeamSpawnPoint>()
 									.Where( ( TeamSpawnPoint teamSpawnPoint ) =>
 									{
-										return teamSpawnPoint.TeamIndex == (int)teamPlayer.Team;
+										return teamSpawnPoint.Team == teamPlayer.Team;
 									} )
 									.OrderBy( x => Guid.NewGuid() )
 									.FirstOrDefault();

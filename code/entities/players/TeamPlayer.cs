@@ -95,7 +95,7 @@ namespace Discount
 			return false;
 		}
 
-		protected override void OnDestroy()
+		public void DeleteOwnedBuildings()
 		{
 			foreach ( TeamBuilding building in OwnedBuildings )
 			{
@@ -104,6 +104,13 @@ namespace Discount
 					building?.Delete();
 				}
 			}
+
+			OwnedBuildings.Clear();
+		}
+
+		protected override void OnDestroy()
+		{
+			DeleteOwnedBuildings();
 		}
 	}
 }

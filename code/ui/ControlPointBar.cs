@@ -1,4 +1,5 @@
-﻿using Sandbox.UI;
+﻿using Sandbox;
+using Sandbox.UI;
 
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ namespace Discount.UI
 	public class ControlPointBar : Panel
 	{
 		protected readonly List<ControlPointIcon> slots_;
+		protected bool iconsCreated_;
 
 		public ControlPointBar()
 		{
@@ -17,34 +19,17 @@ namespace Discount.UI
 		{
 			base.Tick();
 
-			int pointCount = ControlPoint.AllPoints.Count;
-
-			if ( pointCount != slots_.Count )
+			if ( iconsCreated_ )
 			{
-				ChangeSlotCount( pointCount );
+				return;
 			}
-		}
 
-		private void ChangeSlotCount( int newCount )
-		{
-			if ( newCount < slots_.Count )
+			foreach ( ControlPoint point in ControlPoint.AllPoints )
 			{
-				foreach ( ControlPointIcon slot in slots_.GetRange( newCount, slots_.Count - newCount ) )
-				{
-					slot?.Delete();
-				}
-
-				slots_.RemoveRange( newCount, slots_.Count - newCount );
+				slots_.Add( new ControlPointIcon( point, this ) );
 			}
-			else if ( newCount > slots_.Count )
-			{
-				int slotsToAdd = newCount - slots_.Count;
 
-				for ( int i = 0; i < slotsToAdd; i++ )
-				{
-					slots_.Add( new ControlPointIcon( ControlPoint.AllPoints[i], this ) );
-				}
-			}
+			iconsCreated_ = true;
 		}
 	}
 }

@@ -4,7 +4,7 @@
 	{
 		Name = "Heavy"
 		Health = 200
-		MoveSpeed = 190.0
+		MoveSpeed = 225.0
 		PrimaryWeapon = "minigun"
 		SecondaryWeapon = "shotgun"
 		MeleeWeapon = "fists"

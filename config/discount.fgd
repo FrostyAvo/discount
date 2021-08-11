@@ -46,8 +46,12 @@ metadata
 		2 : "Red"
 		3 : "Blue"
 	]
+	timetocapture(float) : "Time To Capture" : 5 : ""
 	index(integer) : "Control Point Index" : 0 : ""
 	enable_shadows(boolean) [ group="Render Properties" ] : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	output OnRedTeamCaptured(void) : ""
+	output OnBlueTeamCaptured(void) : ""
 ]
 
 // 

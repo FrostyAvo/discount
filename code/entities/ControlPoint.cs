@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using Sandbox.UI;
+using System;
 using System.Collections.Generic;
 
 namespace Discount
@@ -8,10 +9,13 @@ namespace Discount
 	[Hammer.EntityTool( "Control Point", "Logic", "Defines a control point players can capture for their team." )]
 	public partial class ControlPoint : Entity
 	{
-		public static List<ControlPoint> AllPoints = new List<ControlPoint>();
+		public static List<ControlPoint> AllPoints { get; protected set; } = new List<ControlPoint>();
 
 		[Property( Title = "Default Owner" )]
 		public Team DefaultOwner { get; protected set; }
+
+		[Property( Title = "Time To Capture" )]
+		public float TimeToCapture { get; protected set; } = 5f;
 
 		[Net]
 		public Team OwningTeam { get; protected set; }
@@ -25,20 +29,28 @@ namespace Discount
 		public float CaptureProgress { get; protected set; }
 		[Net]
 		protected List<int> TeamPlayersOnPoint { get; set; }
+		[Net, OnChangedCallback]
+		protected int IndexInAllPoints { get; set; } = -1;
 
-		protected int indexInAllPoints_;
+		protected float captureStep_;
 		protected bool spawned_;
 
 		[Property( Title = "Control Point Index" )]
 		public int Index { get; set; }
 
+		public Output OnRedTeamCaptured { get; set; }
+		public Output OnBlueTeamCaptured { get; set; }
+
 		public ControlPoint()
 		{
-			TeamPlayersOnPoint = new List<int>(new int[4]);
+			if ( IsServer )
+			{
+				TeamPlayersOnPoint = new List<int>( new int[4] );
 
-			AllPoints.Add( this );
+				AllPoints.Add( this );
 
-			Transmit = TransmitType.Always;
+				Transmit = TransmitType.Always;
+			}
 		}
 
 		public override void Spawn()
@@ -47,6 +59,7 @@ namespace Discount
 
 			OwningTeam = DefaultOwner;
 			CapturingTeam = OwningTeam;
+			captureStep_ = 1f / TimeToCapture;
 
 			spawned_ = true;
 
@@ -59,7 +72,7 @@ namespace Discount
 
 				for ( int i = 0; i < AllPoints.Count; i++ )
 				{
-					AllPoints[i].indexInAllPoints_ = i;
+					AllPoints[i].IndexInAllPoints = i;
 					UpdateLockStatus( i );
 				}
 			}
@@ -103,7 +116,7 @@ namespace Discount
 			else if ( !nonCapturersOnPoint && capturersOnPoint )
 			{
 				// Only capturers on point
-				CaptureProgress += Time.Delta * 0.2f;
+				CaptureProgress += Time.Delta * captureStep_ * (float)( Math.Log( CapturerCount() ) + 1 );
 
 				if ( CaptureProgress >= 1f )
 				{
@@ -112,10 +125,19 @@ namespace Discount
 					OwningTeam = CapturingTeam;
 
 					// Update adjacent point locks
-					UpdateLockStatus( indexInAllPoints_ - 1 );
-					UpdateLockStatus( indexInAllPoints_ + 1 );
+					UpdateLockStatus( IndexInAllPoints - 1 );
+					UpdateLockStatus( IndexInAllPoints + 1 );
 
 					ChatBox.AddInformation( To.Everyone, $"{ Teams.GetLongTeamName( OwningTeam ) } has captured a control point!" );
+
+					if ( OwningTeam == Team.Red )
+					{
+						OnRedTeamCaptured.Fire( this );
+					}
+					else if ( OwningTeam == Team.Blue )
+					{
+						OnBlueTeamCaptured.Fire( this );
+					}
 
 					if ( AllPointsOwnedByOneTeam() )
 					{
@@ -128,7 +150,7 @@ namespace Discount
 			else if ( nonCapturersOnPoint && !capturersOnPoint )
 			{
 				// Only non-capturers on point
-				CaptureProgress -= Time.Delta * 0.1f;
+				CaptureProgress -= Time.Delta * Math.Max( captureStep_ * 0.25f, 0.05f );
 
 				if ( CaptureProgress <= 0f )
 				{
@@ -221,6 +243,16 @@ namespace Discount
 			}
 
 			return OwningTeam;
+		}
+
+		protected void OnIndexInAllPointsChanged()
+		{
+			while ( AllPoints.Count <= IndexInAllPoints )
+			{
+				AllPoints.Add( null );
+			}
+
+			AllPoints[IndexInAllPoints] = this;
 		}
 
 		public static ControlPoint GetByName( string name )

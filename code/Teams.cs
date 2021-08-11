@@ -10,7 +10,7 @@ namespace Discount
 	{
 		private static readonly Color[] lightTeamColors_ =
 		{
-			new Color(1f, 1f, 1f, 1f),
+			new Color(0.9f, 0.9f, 0.9f, 1f),
 			new Color(1.0f, 0.8f, 0.5f, 1f),
 			new Color(1f, 0.5f, 0.5f, 1f),
 			new Color(0.5f, 0.7f, 1f, 1f),
@@ -18,7 +18,7 @@ namespace Discount
 
 		private static readonly Color[] darkTeamColors_ =
 		{
-			new Color(0.5f, 0.5f, 0.5f, 1f),
+			new Color(0.45f, 0.45f, 0.45f, 1f),
 			new Color(0.5f, 0.4f, 0.25f, 1f),
 			new Color(0.5f, 0.25f, 0.25f, 1f),
 			new Color(0.25f, 0.35f, 0.5f, 1f),

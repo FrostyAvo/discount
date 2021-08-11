@@ -4,7 +4,7 @@
 	{
 		Name = "Engineer"
 		Health = 125
-		MoveSpeed = 250.0
+		MoveSpeed = 300.0
 		PrimaryWeapon = "shotgun"
 		SecondaryWeapon = "pistol"
 		MeleeWeapon = "wrench"

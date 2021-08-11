@@ -111,7 +111,11 @@ namespace Discount
 
 			foreach ( Client client in Client.All )
 			{
-				(client.Pawn as Player)?.Respawn();
+				if ( client.Pawn is TeamPlayer teamPlayer )
+				{
+					teamPlayer.DeleteOwnedBuildings();
+					teamPlayer.Respawn();
+				}
 			}
 		}
 

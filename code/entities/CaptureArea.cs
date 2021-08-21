@@ -74,7 +74,8 @@ namespace Discount
 		protected void AddToucher( Entity toucher )
 		{
 			if ( !toucher.IsValid()
-				|| toucher is not TeamPlayer teamPlayer )
+				|| toucher is not TeamPlayer teamPlayer
+				|| toucher is SpectatorPlayer)
 			{
 				return;
 			}

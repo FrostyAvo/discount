@@ -89,6 +89,7 @@ namespace Discount
 				CapturingTeam = GetCapturingTeam();
 
 				ChatBox.AddInformation( To.Everyone, $"{ Teams.GetLongTeamName( CapturingTeam ) } has started capturing a control point!" );
+				PlaySound("startcapture");
 			}
 
 			if ( !BeingCaptured() )
@@ -142,8 +143,13 @@ namespace Discount
 					if ( AllPointsOwnedByOneTeam() )
 					{
 						ChatBox.AddInformation( To.Everyone, $"{ Teams.GetLongTeamName( OwningTeam ) } wins the round!" );
+						PlaySound( "victory" );
 
 						DiscountGame.Reset();
+					}
+					else
+					{
+						PlaySound( "captured" );
 					}
 				}
 			}

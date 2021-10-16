@@ -8,9 +8,7 @@
 		0 : "None"
 		1 : "Buildings"
 	]
-	PrimaryWeapon(string) : "Primary Weapon" : ""
-	SecondaryWeapon(string) : "Secondary Weapon" : ""
-	MeleeWeapon(string) : "Melee Weapon" : ""
+	Weapons(array:string) { editor = "AssetBrowse( weapon )" } : "Weapons"
 	Hat(resource:vmdl) : "Hat" : ""
 	RedShirt(resource:vmdl) : "Red Shirt" : ""
 	BlueShirt(resource:vmdl) : "Blue Shirt" : ""

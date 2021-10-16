@@ -23,5 +23,6 @@
 		AmmoPerShot = 1
 		AmmoPerReload = 1
 		ReloadSound = ""
+		AttackType = "0"
 	}
 }

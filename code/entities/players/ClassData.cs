@@ -16,9 +16,7 @@ namespace Discount
 		public int Health { get; set; } = 125;
 		public float MoveSpeed { get; set; } = 150;
 		public ClassSpecialAbility SpecialAbility { get; set; } = ClassSpecialAbility.None;
-		public string PrimaryWeapon { get; set; } = "";
-		public string SecondaryWeapon { get; set; } = "";
-		public string MeleeWeapon { get; set; } = "";
+		public string[] Weapons { get; set; } = new string[] { };
 		public string Hat { get; set; } = "";
 		public string RedShirt { get; set; } = "";
 		public string BlueShirt { get; set; } = "";

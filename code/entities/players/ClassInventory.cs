@@ -16,7 +16,7 @@ namespace Discount
 			Owner = owner;
 		}
 
-		public virtual void Fill( Weapon[] contents )
+		public virtual void Fill( IEnumerable<Weapon> contents )
 		{
 			Host.AssertServer();
 

@@ -29,9 +29,9 @@ namespace Discount.Weapons
 			Data = null;
 		}
 
-		protected AssetWeapon( string weaponData )
+		protected AssetWeapon( WeaponData weaponData )
 		{
-			Data = Resource.FromPath<WeaponData>( "data/weapons/" + weaponData + ".weapon" );
+			Data = weaponData;
 
 			AmmoInClip = Data.ClipSize;
 			AmmoInReserve = Data.ReserveAmmo;
@@ -217,6 +217,26 @@ namespace Discount.Weapons
 			}
 
 			AmmoInReserve += Math.Min( (int)(percentage * Data.ReserveAmmo), Data.ReserveAmmo - AmmoInReserve );
+		}
+
+		public static AssetWeapon CreateFromData( string data )
+		{
+			WeaponData weaponData = Resource.FromPath<WeaponData>( data );
+
+			switch ( weaponData.AttackType )
+			{
+				case 0:
+					return new HitscanWeapon( weaponData );
+
+				case 1:
+					return new MeleeWeapon( weaponData );
+
+				case 2:
+					return new ProjectileWeapon( weaponData );
+
+				default:
+					return null;
+			}
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace Discount.Weapons
 
 		}
 
-		public HitscanWeapon( string weaponData ) : base( weaponData )
+		public HitscanWeapon( WeaponData weaponData ) : base( weaponData )
 		{
 
 		}

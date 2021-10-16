@@ -3,6 +3,12 @@
 	Name(string) : "Weapon Name" : "Weapon"
 	ViewModelPath(resource:vmdl) : "View Model"
 	WorldModelPath(resource:vmdl) : "World Model"
+	AttackType(choices) : "Attack Type" : "0" =
+	[
+		0 : "Bullet"
+		1 : "Melee"
+		2 : "Projectile"
+	]
 	PrimaryFireSound(string) : "Primary Fire Sound" : ""
 	HoldType(choices) : "Hold Type" : "0" =
 	[

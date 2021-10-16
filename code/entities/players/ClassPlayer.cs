@@ -2,6 +2,8 @@
 
 using Sandbox;
 
+using System.Collections.Generic;
+
 namespace Discount
 {
 	public partial class ClassPlayer : TeamPlayer
@@ -85,29 +87,21 @@ namespace Discount
 					SetBodyGroup( "Feet", 1 );
 				}
 
+				List<Weapon> weapons = new List<Weapon>();
+
+				foreach ( string weaponPath in Data.Weapons )
+				{
+					weapons.Add( AssetWeapon.CreateFromData( weaponPath ) );
+				}
+
 				if ( Data.SpecialAbility == ClassSpecialAbility.Buildings )
 				{
-					(Inventory as ClassInventory)?.Fill(
-						new Weapon[]
-						{
-							new HitscanWeapon( Data.PrimaryWeapon ),
-							new HitscanWeapon( Data.SecondaryWeapon ),
-							new MeleeWeapon( Data.MeleeWeapon ),
-							new DispenserTool(),
-							new TeleporterEntranceTool(),
-							new TeleporterExitTool(),
-						} );
+					weapons.Add( new DispenserTool() );
+					weapons.Add( new TeleporterEntranceTool() );
+					weapons.Add( new TeleporterExitTool() );
 				}
-				else
-				{
-					(Inventory as ClassInventory)?.Fill(
-					new Weapon[]
-					{
-						new HitscanWeapon( Data.PrimaryWeapon ),
-						new HitscanWeapon( Data.SecondaryWeapon ),
-						new MeleeWeapon( Data.MeleeWeapon )
-					} );
-				}
+
+				(Inventory as ClassInventory)?.Fill( weapons );
 			}
 		}
 

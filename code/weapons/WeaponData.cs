@@ -8,6 +8,7 @@ namespace Discount.Weapons
 		public new string Name { get; set; } = "Weapon";
 		public string ViewModelPath { get; set; } = "";
 		public string WorldModelPath { get; set; } = "";
+		public int AttackType { get; set; } = 0;
 		public string PrimaryFireSound { get; set; } = "";
 		public int HoldType { get; set; } = 0;
 		public int BulletsPerShot { get; set; } = 1;

@@ -5,9 +5,6 @@
 		Name = "Sniper"
 		Health = 125
 		MoveSpeed = 300.0
-		PrimaryWeapon = "sniperrifle"
-		SecondaryWeapon = "pistol"
-		MeleeWeapon = "kukri"
 		SpecialAbility = "0"
 		Hat = resource:"models/citizen_clothes/hair/hair_malestyle02.vmdl"
 		RedShirt = resource:"models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
@@ -15,5 +12,11 @@
 		RedPants = resource:"models/citizen_clothes/shoes/shorts.cargo.vmdl"
 		BluePants = resource:"models/citizen_clothes/shoes/shorts.cargo.vmdl"
 		Shoes = resource:"models/citizen_clothes/shoes/smartshoes/smartshoes.vmdl"
+		Weapons = 
+		[
+			"data/weapons/sniperrifle.weapon",
+			"data/weapons/pistol.weapon",
+			"data/weapons/kukri.weapon",
+		]
 	}
 }

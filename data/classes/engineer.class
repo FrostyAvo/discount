@@ -5,9 +5,6 @@
 		Name = "Engineer"
 		Health = 125
 		MoveSpeed = 300.0
-		PrimaryWeapon = "shotgun"
-		SecondaryWeapon = "pistol"
-		MeleeWeapon = "wrench"
 		SpecialAbility = 1
 		Hat = resource:"models/citizen_clothes/hat/hat_hardhat.vmdl"
 		RedShirt = resource:"models/citizen_clothes/shirt/shirt_longsleeve.plain.vmdl"
@@ -15,5 +12,11 @@
 		RedPants = resource:"models/citizen_clothes/trousers/trousers.smarttan.vmdl"
 		BluePants = resource:"models/citizen_clothes/trousers/trousers.police.vmdl"
 		Shoes = resource:"models/citizen_clothes/shoes/shoes.police.vmdl"
+		Weapons = 
+		[
+			"data/weapons/shotgun.weapon",
+			"data/weapons/pistol.weapon",
+			"data/weapons/wrench.weapon",
+		]
 	}
 }

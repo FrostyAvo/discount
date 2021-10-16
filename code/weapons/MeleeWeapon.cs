@@ -9,7 +9,7 @@ namespace Discount.Weapons
 
 		}
 
-		public MeleeWeapon( string weaponData ) : base( weaponData )
+		public MeleeWeapon( WeaponData weaponData ) : base( weaponData )
 		{
 
 		}

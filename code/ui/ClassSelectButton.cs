@@ -6,6 +6,7 @@ namespace Discount.UI
 {
 	public class ClassSelectButton : Button
 	{
+		protected ClassData classData_;
 		protected string className_;
 		protected Team clientTeam_;
 		protected Color notHoveredColor_;
@@ -14,18 +15,20 @@ namespace Discount.UI
 		public ClassSelectButton( string className )
 		{
 			className_ = className;
+			classData_ = Resource.FromPath<ClassData>( "data/classes/" + className + ".class" );
 
 			// Invalid team to force an initial update
 			clientTeam_ = (Team)(-1);
 
 			UpdateTeam();
 
+			// I would use classData_.Name here but it's null due to a S&box bug
 			string buttonLabelText = className;
 
 			// Capitalize class name
 			if ( className.Length != 0 )
 			{
-				buttonLabelText = className.Remove(0, 1).Insert(0, className[0].ToString().ToUpper() );
+				buttonLabelText = className.Remove( 0, 1 ).Insert( 0, className[0].ToString().ToUpper() );
 			}
 
 			Add.Label( buttonLabelText, "label" );

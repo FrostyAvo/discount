@@ -30,13 +30,60 @@ namespace Discount.Weapons
 			ShootEffects();
 			PlaySound( Data.PrimaryFireSound );
 
+			if ( !Host.IsServer )
+			{
+				return;
+			}
+
 			for ( int i = 0; i < Data.BulletsPerShot; i++ )
 			{
-				Rotation projectileRotation =
+				Vector3 traceDirection =
 					(Owner.EyeRot
 						* Rotation.FromRoll( Rand.Float( 0f, 360f ) )
 						* Rotation.FromPitch( Rand.Float( 0f, Data.SpreadAngle ) )
-							);
+					).Forward;
+
+				Vector3 targetPosition = Owner.EyePos + traceDirection * 10000;
+
+				IEnumerator<TraceResult> traceResults = TraceBullet(
+					Owner.EyePos,
+					Owner.EyePos + traceDirection * 10000
+					).GetEnumerator();
+
+				// Only grab the first trace result and reject traces that didn't hit
+				if ( traceResults.MoveNext() && !traceResults.Current.Hit )
+				{
+					targetPosition = traceResults.Current.EndPos;
+				}
+
+				Transform muzzleTransform = GetAttachment( "muzzle" ) ?? Transform;
+
+				Vector3 projectileSpawnPosition = Owner.EyePos + Owner.EyeRot * new Vector3(30f, -15f, -10f);
+				Vector3 projectileDirection = targetPosition - projectileSpawnPosition;
+
+				if ( projectileDirection != Vector3.Zero )
+				{
+					projectileDirection = projectileDirection.Normal;
+				}
+
+				Projectile projectile = new Projectile();
+
+				projectile.Position = projectileSpawnPosition;
+				projectile.Rotation = Owner.EyeRot * Rotation.FromPitch(90f);
+
+				projectile.Damage = Data.Damage;
+				projectile.ExplosionRadius = 100f;
+				projectile.GravityAffected = false;
+				projectile.Owner = Owner;
+
+				if ( Owner is ITeamEntity teamOwner )
+				{
+					projectile.Team = teamOwner.Team;
+				}
+
+				projectile.Spawn();
+
+				projectile.Velocity = projectileDirection * 1500f;
 			}
 		}
 

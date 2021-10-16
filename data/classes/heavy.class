@@ -3,7 +3,7 @@
 	data = 
 	{
 		Name = "Heavy"
-		Health = 200
+		Health = 250
 		MoveSpeed = 225.0
 		SpecialAbility = "0"
 		Hat = resource:""

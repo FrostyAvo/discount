@@ -9,7 +9,7 @@ namespace Discount
 	{
 		public readonly static string[] AllClasses = new string[]
 		{
-			"scout", "heavy", "engineer", "sniper"
+			"scout", "soldier", "heavy", "engineer", "sniper"
 		};
 
 		public new string Name { get; set; } = "Class";

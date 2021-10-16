@@ -7,7 +7,8 @@ namespace Discount
 		[Net]
 		protected TeleporterEntrance Entrance { get; set; }
 
-		protected TimeSince timeSinceCreatedParticles_;
+		[Net, Predicted]
+		protected TimeSince timeSinceCreatedParticles_ { get; set; }
 
 		public override string Model => "models/rust_props/ac_units/ac_unit_b_600x600.vmdl";
 		public override float ModelScale => 0.2f;

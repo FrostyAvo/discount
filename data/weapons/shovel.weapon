@@ -1,0 +1,28 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		Name = "Shovelight"
+		ViewModelPath = "weapons/rust_flashlight/v_rust_flashlight.vmdl"
+		WorldModelPath = "weapons/rust_pistol/rust_pistol.vmdl"
+		PrimaryFireSound = "rust_flashlight.attack"
+		HoldType = 4
+		BulletsPerShot = 1
+		PrimaryFireRate = 1.25
+		Damage = 65.0
+		Knockback = 200.0
+		SpreadAngle = 0.0
+		Range = 70.0
+		DeployTime = 0.5
+		CanHeadshot = false
+		WindupTime = 0.0
+		WindupSound = ""
+		AmmoPerShot = 0
+		ClipSize = 0
+		ReserveAmmo = 0
+		AmmoPerReload = 1
+		ReloadTime = 1.0
+		ReloadSound = ""
+		AttackType = "1"
+	}
+}

@@ -163,6 +163,11 @@ namespace Discount
 			EnableAllCollisions = false;
 			EnableDrawing = false;
 
+			foreach (Entity wornEntity in Children )
+			{
+				wornEntity.EnableDrawing = false;
+			}
+
 			Inventory.DeleteContents();
 		}
 

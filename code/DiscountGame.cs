@@ -22,9 +22,9 @@ namespace Discount
 	public partial class DiscountGame : Game
 	{
 		protected MainHud mainHud_;
-		[Net, OnChangedCallback]
+		[Net, Change]
 		protected ClassSelectionUi ClassSelectionUi { get; set; }
-		[Net, OnChangedCallback]
+		[Net, Change]
 		protected TeamSelectionUi TeamSelectionUi { get; set; }
 
 		protected bool classSelectionUiEnabled_;

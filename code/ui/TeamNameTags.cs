@@ -18,7 +18,7 @@ namespace Discount.UI
 		{
 			Player = player;
 
-			Client client = player?.GetClientOwner();
+			Client client = player?.Client;
 
 			if (client != null)
 			{

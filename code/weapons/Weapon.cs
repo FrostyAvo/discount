@@ -5,7 +5,7 @@ namespace Discount.Weapons
 {
 	public abstract partial class Weapon : BaseWeapon
 	{
-		[Net, Predicted, OnChangedCallback]
+		[Net, Predicted, Change]
 		public int Slot { get; set; } = -1;
 
 		protected void OnSlotChanged()

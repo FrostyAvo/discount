@@ -29,7 +29,7 @@ namespace Discount
 		public float CaptureProgress { get; protected set; }
 		[Net]
 		protected List<int> TeamPlayersOnPoint { get; set; }
-		[Net, OnChangedCallback]
+		[Net, Change]
 		protected int IndexInAllPoints { get; set; } = -1;
 
 		protected float captureStep_;
@@ -88,7 +88,7 @@ namespace Discount
 			{
 				CapturingTeam = GetCapturingTeam();
 
-				ChatBox.AddInformation( To.Everyone, $"{ Teams.GetLongTeamName( CapturingTeam ) } has started capturing a control point!" );
+				Teams.BroadcastChatMessage( To.Everyone, $"{ Teams.GetLongTeamName( CapturingTeam ) } has started capturing a control point!" );
 				PlaySound("startcapture");
 			}
 
@@ -129,7 +129,7 @@ namespace Discount
 					UpdateLockStatus( IndexInAllPoints - 1 );
 					UpdateLockStatus( IndexInAllPoints + 1 );
 
-					ChatBox.AddInformation( To.Everyone, $"{ Teams.GetLongTeamName( OwningTeam ) } has captured a control point!" );
+					Teams.BroadcastChatMessage( To.Everyone, $"{ Teams.GetLongTeamName( OwningTeam ) } has captured a control point!" );
 
 					if ( OwningTeam == Team.Red )
 					{
@@ -142,7 +142,7 @@ namespace Discount
 
 					if ( AllPointsOwnedByOneTeam() )
 					{
-						ChatBox.AddInformation( To.Everyone, $"{ Teams.GetLongTeamName( OwningTeam ) } wins the round!" );
+						Teams.BroadcastChatMessage( To.Everyone, $"{ Teams.GetLongTeamName( OwningTeam ) } wins the round!" );
 						PlaySound( "victory" );
 
 						DiscountGame.Reset();
@@ -265,7 +265,7 @@ namespace Discount
 		{
 			foreach ( ControlPoint point in AllPoints )
 			{
-				if ( point.EntityName == name )
+				if ( point.Name == name )
 				{
 					return point;
 				}

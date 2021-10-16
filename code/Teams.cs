@@ -71,7 +71,8 @@ namespace Discount
 			if ( Host.IsServer )
 			{
 				Log.Info( $"\"{ client.Name }\" { joinedStrings_[(int)team] }" );
-				ChatBox.AddInformation( To.Everyone, $"{ client.Name } { joinedStrings_[(int)team] }", $"avatar:{ client.SteamId }" );
+
+				BroadcastChatMessage( To.Everyone, $"{ client.Name } { joinedStrings_[(int)team] }", $"avatar:{ client.SteamId }" );
 			}
 
 			return true;
@@ -106,6 +107,12 @@ namespace Discount
 			TeamPlayerCounts[(int)PlayerTeams[client.NetworkIdent - 1]]--;
 
 			PlayerTeams[client.NetworkIdent - 1] = Team.Unassigned;
+		}
+
+		[ClientRpc]
+		public static void BroadcastChatMessage(string message, string avatar = null)
+		{
+			ChatBox.AddInformation( message, avatar );
 		}
 
 		public static int GetTeamPlayerCount( Team team )

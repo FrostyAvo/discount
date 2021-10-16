@@ -65,11 +65,11 @@ namespace Discount.Weapons
 			if ( !traceResult.Entity.IsWorld
 				|| Vector3.GetAngle( traceResult.Normal, Vector3.Up ) > 45f )
 			{
-				PreviewHologram.RenderColorAndAlpha = new Color32( 255, 0, 0, 150 );
+				PreviewHologram.RenderColor = new Color( 1f, 0, 0, 0.6f );
 			}
 			else
 			{
-				PreviewHologram.RenderColorAndAlpha = new Color32( 0, 255, 0, 150 );
+				PreviewHologram.RenderColor = new Color( 0, 1f, 0, 0.6f );
 			}
 
 			PreviewHologram.Position = traceResult.EndPos;

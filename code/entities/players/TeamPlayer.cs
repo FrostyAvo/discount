@@ -110,9 +110,11 @@ namespace Discount
 
 		public void DeleteOwnedBuildings()
 		{
-			foreach ( TeamBuilding building in OwnedBuildings )
+			if ( IsServer )
 			{
-				if ( IsServer )
+				Queue<TeamBuilding> deletionQueue = new Queue<TeamBuilding>( OwnedBuildings );
+
+				while ( deletionQueue.TryDequeue( out TeamBuilding building ) )
 				{
 					building?.Delete();
 				}

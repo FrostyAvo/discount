@@ -1,10 +1,10 @@
 ﻿namespace Discount.Weapons
 {
-	class DispenserBuilder : BuilderWeapon<Dispenser>
+	class DispenserTool : BuildingTool<Dispenser>
 	{
 		public override string ToString()
 		{
-			return "Dispenser Builder";
+			return "Dispenser Tool";
 		}
 	}
 }

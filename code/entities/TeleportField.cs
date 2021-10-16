@@ -8,7 +8,7 @@ namespace Discount
 	{
 		protected readonly List<TeamPlayer> touchingPlayers_;
 		protected readonly float teleportDelay_ = 1f;
-		protected readonly float fieldRadius_ = 10f;
+		protected readonly float fieldRadius_ = 5f;
 		protected TimeSince timeSinceTeleported_;
 		protected TeleporterExit exit_;
 

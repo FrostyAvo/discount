@@ -83,6 +83,7 @@ namespace Discount
 			if ( IsServer )
 			{
 				TeleportField?.Delete();
+				Exit?.ConnectEntrance( null );
 			}
 		}
 	}

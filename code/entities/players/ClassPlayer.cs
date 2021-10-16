@@ -93,9 +93,9 @@ namespace Discount
 							new HitscanWeapon( Data.PrimaryWeapon ),
 							new HitscanWeapon( Data.SecondaryWeapon ),
 							new MeleeWeapon( Data.MeleeWeapon ),
-							new DispenserBuilder(),
-							new TeleporterEntranceBuilder(),
-							new TeleporterExitBuilder(),
+							new DispenserTool(),
+							new TeleporterEntranceTool(),
+							new TeleporterExitTool(),
 						} );
 				}
 				else

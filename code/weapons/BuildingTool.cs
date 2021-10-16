@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Discount.Weapons
 {
-	public partial class BuilderWeapon<T> : Weapon where T : TeamBuilding, new()
+	public partial class BuildingTool<T> : Weapon where T : TeamBuilding, new()
 	{
 		[Net]
 		protected BuildingPreviewHologram PreviewHologram { get; set; }
@@ -13,7 +13,7 @@ namespace Discount.Weapons
 		protected string BuildingModel = "";
 		protected float BuildingModelScale = 1f;
 
-		public BuilderWeapon()
+		public BuildingTool()
 		{
 
 		}
@@ -138,9 +138,17 @@ namespace Discount.Weapons
 			createdBuilding.Spawn();
 		}
 
+		public override void AttackSecondary()
+		{
+			if ( IsServer )
+			{
+				(Owner as TeamPlayer)?.TryGetOwnedBuildingOfType<T>()?.Delete();
+			}
+		}
+
 		public override string ToString()
 		{
-			return "Builder";
+			return "Building Tool";
 		}
 
 		public override void SimulateAnimator( PawnAnimator anim )

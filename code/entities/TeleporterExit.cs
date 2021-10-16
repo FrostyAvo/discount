@@ -53,5 +53,15 @@ namespace Discount
 				PlaySound( "teleporter.idle" );
 			}
 		}
+
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+
+			if ( IsServer )
+			{
+				Entrance?.ConnectExit( null );
+			}
+		}
 	}
 }

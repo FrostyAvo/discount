@@ -4,7 +4,7 @@
 	{
 		Name = "Soldier"
 		Health = 200
-		MoveSpeed = 200.0
+		MoveSpeed = 240.0
 		SpecialAbility = "0"
 		Weapons = 
 		[

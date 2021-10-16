@@ -171,7 +171,10 @@ namespace Discount.Weapons
 		{
 			base.ActiveEnd( ent, dropped );
 
-			PreviewHologram.EnableDrawing = false;
+			if ( PreviewHologram != null )
+			{
+				PreviewHologram.EnableDrawing = false;
+			}
 		}
 	}
 }

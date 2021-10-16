@@ -7,6 +7,9 @@ namespace Discount
 		[Net]
 		protected ResupplyField ResupplyField { get; set; }
 
+		public override string Model => "models/rust_props/electrical_boxes/electrical_box_b.vmdl";
+		public override float ModelScale => 0.8f;
+
 		public Dispenser()
 		{
 			
@@ -15,17 +18,6 @@ namespace Discount
 		public override void Spawn()
 		{
 			base.Spawn();
-
-			SetModel( "models/rust_props/electrical_boxes/electrical_box_b.vmdl" );
-			Scale = 0.8f;
-
-			MoveType = MoveType.Physics;
-			CollisionGroup = CollisionGroup.Interactive;
-			PhysicsEnabled = true;
-			UsePhysicsCollision = true;
-			Health = 150;
-
-			RenderColor = Teams.GetLightTeamColor( Team );
 
 			if ( IsServer )
 			{
@@ -48,24 +40,9 @@ namespace Discount
 			}
 		}
 
-		public override void OnKilled()
-		{
-			base.OnKilled();
-
-			Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", Position );
-			PlaySound( "building.break" );
-
-			if ( IsServer )
-			{
-				Delete();
-			}
-		}
-
 		protected override void OnDestroy()
 		{
 			base.OnDestroy();
-
-			(Owner as TeamPlayer)?.RemoveOwnedBuilding( this );
 
 			if ( IsServer )
 			{

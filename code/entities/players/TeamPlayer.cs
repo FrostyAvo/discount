@@ -95,6 +95,19 @@ namespace Discount
 			return false;
 		}
 
+		public T TryGetOwnedBuildingOfType<T>() where T : TeamBuilding
+		{
+			foreach ( TeamBuilding building in OwnedBuildings )
+			{
+				if ( building.GetType() == typeof( T ) )
+				{
+					return (T)building;
+				}
+			}
+
+			return null;
+		}
+
 		public void DeleteOwnedBuildings()
 		{
 			foreach ( TeamBuilding building in OwnedBuildings )

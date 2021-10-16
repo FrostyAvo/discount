@@ -20,7 +20,7 @@ namespace Discount.UI
 			RootPanel.AddChild<ChatBox>();
 			RootPanel.AddChild<VoiceList>();
 			RootPanel.AddChild<KillFeed>();
-			RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
+			RootPanel.AddChild<TeamScoreboard<ScoreboardEntry>>();
 			RootPanel.AddChild<HealthPanel>();
 			RootPanel.AddChild<AmmoPanel>();
 			RootPanel.AddChild<InventoryBar>();

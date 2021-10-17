@@ -84,7 +84,7 @@ namespace Discount.Weapons
 			}
 
 			PreviewHologram.Position = traceResult.EndPos;
-			PreviewHologram.Rotation = Rotation.FromYaw( Rotation.Yaw() + 90f );
+			PreviewHologram.Rotation = Rotation.FromYaw( Owner.EyeRot.Yaw() + 90f );
 
 			PreviewHologram.EnableDrawing = true;
 		}

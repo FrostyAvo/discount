@@ -10,7 +10,7 @@
 		2 : "Projectile"
 	]
 	PrimaryFireSound(string) : "Primary Fire Sound" : ""
-	HoldType(choices) : "Hold Type" : "0" =
+	HoldType(choices) : "Hold Animation Type" : "0" =
 	[
 		0 : "None"
 		1 : "Pistol"
@@ -34,4 +34,12 @@
 	CanHeadshot(bool) : "Can Headshot" : "false"
 	WindupTime(float) : "Windup Time" : "0"
 	WindupSound(string) : "Windup Sound" : ""
+	GravityAffected(bool) : "Affected by Gravity (Projectiles)" : "false"
+	Explosive(bool) : "Explosive (Projectiles)" : "false"
+	ExplosionRadius(float) : "Explosion Radius (Projectiles)" : "100"
+	DisarmOnFirstHit(bool) : "Don't Damage After First Hit (Projectiles)" : "false"
+	Sticky(bool) : "Stick to Impact Point (Projectiles)" : "false"
+	EmitSmoke(bool) : "Emit Smoke (Projectiles)" : "false"
+	ProjectileSpeed(float) : "Projectile Speed" : "1000"
+	ProjectileLifetime(float) : "Projectile Lifetime" : "10"
 ]

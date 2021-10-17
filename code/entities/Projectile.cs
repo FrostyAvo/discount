@@ -6,8 +6,9 @@ namespace Discount
 {
 	public partial class Projectile : BasePhysics
 	{
+		protected TimeSince timeSinceCreatedParticles_;
 		[Net, Predicted]
-		protected TimeSince timeSinceCreatedParticles_ { get; set; }
+		protected TimeSince timeSinceSpawned_ { get; set; }
 
 		[Net, Predicted]
 		public Team Team { get; set; }
@@ -17,12 +18,25 @@ namespace Discount
 		public float ExplosionRadius { get; set; } = 100f;
 		[Net, Predicted]
 		public bool GravityAffected { get; set; } = true;
+		[Net, Predicted]
+		public bool Explode { get; set; } = false;
+		[Net, Predicted]
+		public bool DisarmAfterFirstHit { get; set; } = false;
+		[Net, Predicted]
+		public bool Sticky { get; set; } = false;
+		[Net, Predicted]
+		public bool EmitSmoke { get; set; } = false;
+		[Net, Predicted]
+		public float Lifetime { get; set; } = 5f;
 
 		public override void Spawn()
 		{
 			base.Spawn();
 
 			SetModel( "models/sbox_props/cola_can/cola_can.vmdl" );
+
+			timeSinceCreatedParticles_ = 1f;
+			timeSinceSpawned_ = 0f;
 
 			MoveType = MoveType.Physics;
 			CollisionGroup = CollisionGroup.Interactive;
@@ -42,11 +56,18 @@ namespace Discount
 		[Event( "server.tick" )]
 		public void Tick()
 		{
-			if ( timeSinceCreatedParticles_ > 0.3f )
+			if ( timeSinceCreatedParticles_ > 0.3f
+				&& EmitSmoke )
 			{
 				timeSinceCreatedParticles_ = 0;
 
 				Particles.Create( "particles/explosion_smoke.vpcf", Position );
+			}
+
+			if ( timeSinceSpawned_ > Lifetime
+				&& Host.IsServer )
+			{
+				Delete();
 			}
 		}
 
@@ -58,15 +79,10 @@ namespace Discount
 				return;
 			}
 
-			if ( Host.IsServer )
+			if ( DisarmAfterFirstHit )
 			{
-				Delete();
+				LifeState = LifeState.Dead;
 			}
-
-			LifeState = LifeState.Dead;
-
-			Sound.FromWorld( "explosion", eventData.Pos );
-			Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", eventData.Pos );
 
 			if ( eventData.Entity is ModelEntity hitEnt
 					&& hitEnt.IsValid()
@@ -77,28 +93,73 @@ namespace Discount
 			{
 				using ( Prediction.Off() )
 				{
-					hitEnt.TakeDamage( DamageInfo.Explosion( eventData.Pos, Rotation.Forward * 1000f, Damage * 0.5f )
+					hitEnt.TakeDamage( DamageInfo.Explosion( eventData.Pos, Rotation.Forward * 1000f, Explode ? Damage * 0.5f : Damage )
 						.WithAttacker( Owner )
 						.WithWeapon( this ) );
 				}
 			}
 
-			Vector3 sourcePos = eventData.Pos;
+			if ( Sticky
+				&& eventData.Entity.IsWorld )
+			{
+				Position = eventData.Pos;
+
+				if ( PhysicsBody != null )
+				{
+					PhysicsBody.GravityEnabled = false;
+				}
+
+				// For some reason you can't disable physics movement without disabling this callback, so this at least resets the projectile's movement
+				PhysicsEnabled = false;
+				PhysicsEnabled = true;
+			}
+
+			if ( !Explode
+				|| ( DisarmAfterFirstHit && eventData.Entity.IsWorld ) )
+			{
+				return;
+			}
+
+			if ( Host.IsServer )
+			{
+				Delete();
+			}
+		}
+
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+
+			if ( !Explode )
+			{
+				return;
+			}
+
+			if ( IsServer )
+			{
+				using ( Prediction.Off() )
+				{
+					Sound.FromWorld( "explosion", Position );
+					Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", Position );
+				}
+			}
+
+			Vector3 sourcePos = Position;
 			IEnumerable<Entity> overlaps = Physics.GetEntitiesInSphere( sourcePos, ExplosionRadius );
 
 			foreach ( Entity overlap in overlaps )
 			{
-				if ( overlap is not ModelEntity ent 
+				if ( overlap is not ModelEntity ent
 					|| !ent.IsValid()
-					|| ent.LifeState != LifeState.Alive 
+					|| ent.LifeState != LifeState.Alive
 					|| !ent.PhysicsBody.IsValid()
 					|| ent.IsWorld
-					|| ( ent is ITeamEntity teamEntity && teamEntity.Team == Team && overlap != Owner ) )
+					|| (ent is ITeamEntity teamEntity && teamEntity.Team == Team && overlap != Owner) )
 				{
 					continue;
 				}
 
-				Vector3 targetPos = eventData.Pos;
+				Vector3 targetPos = Position;
 
 				float dist = Vector3.DistanceBetween( sourcePos, targetPos );
 
@@ -134,6 +195,15 @@ namespace Discount
 						.WithWeapon( this ) );
 				}
 			}
+		}
+
+		[ClientRpc]
+		protected void ImpactEffects()
+		{
+			Host.AssertClient();
+
+						Sound.FromWorld( "explosion", Position );
+			Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", Position );
 		}
 	}
 }

@@ -16,7 +16,7 @@
 		AmmoPerReload = 1
 		ReloadTime = 0.8
 		ReloadSound = "rust_pumpshotgun.pump"
-		Damage = 90.0
+		Damage = 80.0
 		Knockback = 100.0
 		SpreadAngle = 0.0
 		Range = 2000.0
@@ -24,5 +24,13 @@
 		CanHeadshot = false
 		WindupTime = 0.0
 		WindupSound = ""
+		GravityAffected = false
+		Explosive = true
+		ExplosionRadius = 100.0
+		DisarmOnFirstHit = false
+		Sticky = false
+		ProjectileSpeed = 1500.0
+		ProjectileLifetime = 10.0
+		EmitSmoke = true
 	}
 }

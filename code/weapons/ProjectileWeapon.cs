@@ -56,8 +56,6 @@ namespace Discount.Weapons
 					targetPosition = traceResults.Current.EndPos;
 				}
 
-				Transform muzzleTransform = GetAttachment( "muzzle" ) ?? Transform;
-
 				Vector3 projectileSpawnPosition = Owner.EyePos + Owner.EyeRot * new Vector3(30f, -15f, -10f);
 				Vector3 projectileDirection = targetPosition - projectileSpawnPosition;
 
@@ -72,8 +70,13 @@ namespace Discount.Weapons
 				projectile.Rotation = Owner.EyeRot * Rotation.FromPitch(90f);
 
 				projectile.Damage = Data.Damage;
-				projectile.ExplosionRadius = 100f;
-				projectile.GravityAffected = false;
+				projectile.ExplosionRadius = Data.ExplosionRadius;
+				projectile.GravityAffected = Data.GravityAffected;
+				projectile.Explode = Data.Explosive;
+				projectile.DisarmAfterFirstHit = Data.DisarmAfterFirstHit;
+				projectile.Sticky = Data.Sticky;
+				projectile.EmitSmoke = Data.EmitSmoke;
+				projectile.Lifetime = Data.ProjectileLifetime;
 				projectile.Owner = Owner;
 
 				if ( Owner is ITeamEntity teamOwner )
@@ -83,7 +86,7 @@ namespace Discount.Weapons
 
 				projectile.Spawn();
 
-				projectile.Velocity = projectileDirection * 1500f;
+				projectile.Velocity = projectileDirection * Data.ProjectileSpeed;
 			}
 		}
 

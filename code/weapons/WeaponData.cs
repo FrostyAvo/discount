@@ -27,5 +27,13 @@ namespace Discount.Weapons
 		public bool CanHeadshot { get; set; } = false;
 		public float WindupTime { get; set; } = 0;
 		public string WindupSound { get; set; } = "";
+		public bool GravityAffected { get; set; } = false;
+		public bool Explosive { get; set; } = false;
+		public float ExplosionRadius { get; set; } = 100f;
+		public bool DisarmAfterFirstHit { get; set; } = false;
+		public bool Sticky { get; set; } = false;
+		public bool EmitSmoke { get; set; } = false;
+		public float ProjectileSpeed { get; set; } = 1000f;
+		public float ProjectileLifetime { get; set; } = 10f;
 	}
 }

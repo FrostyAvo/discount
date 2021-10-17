@@ -87,6 +87,11 @@ namespace Discount
 					SetBodyGroup( "Feet", 1 );
 				}
 
+				foreach ( string extraClothing in Data.ExtraClothes )
+				{
+					Wear( extraClothing );
+				}
+
 				List<Weapon> weapons = new List<Weapon>();
 
 				foreach ( string weaponPath in Data.Weapons )

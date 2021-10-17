@@ -51,6 +51,41 @@ namespace Discount.Weapons
 
 				TraceResult traceResult = traceResults.Current;
 
+				float damageToDeal = Data.Damage;
+
+				// Apply headshot damage if relevant
+				if ( Data.CanHeadshot
+					&& traceResult.Entity is Player hitPlayer
+					&& hitPlayer.GetHitboxGroup( traceResults.Current.HitboxIndex ) == 1 )
+				{
+					damageToDeal *= 3f;
+				}
+
+				if ( Data.Healing )
+				{
+					// Only heal teammates
+					if ( traceResult.Entity is not TeamPlayer hitTeamPlayer
+						 || Owner is not TeamPlayer ownerTeamPlayer
+						 || hitTeamPlayer.Team != ownerTeamPlayer.Team )
+					{
+						continue;
+					}
+
+					hitTeamPlayer.Heal( damageToDeal );
+
+					if ( IsServer )
+					{
+						using ( Prediction.Off() )
+						{
+							Particles healParticles = Particles.Create( "particles/water_bubble_trail.vpcf", Owner.EyePos + Owner.EyeRot * new Vector3( 40f, -12f, -5f ) );
+
+							healParticles.SetPosition( 1, traceResult.EndPos );
+						}
+					}
+
+					continue;
+				}
+
 				// Don't hurt teammates
 				if ( traceResult.Entity is ITeamEntity hitTeamEntity
 					&& Owner is ITeamEntity ownerTeamEntity
@@ -68,19 +103,9 @@ namespace Discount.Weapons
 				}
 
 				// Don't damage if there's nothing to damage or if we're not the server
-				if ( !IsServer || !traceResult.Entity.IsValid())
+				if ( !IsServer || !traceResult.Entity.IsValid() )
 				{
 					continue;
-				}
-
-				float damageToDeal = Data.Damage;
-
-				// Apply headshot damage if relevant
-				if ( Data.CanHeadshot
-					&& traceResult.Entity is Player hitPlayer
-					&& hitPlayer.GetHitboxGroup( traceResults.Current.HitboxIndex ) == 1 )
-				{
-					damageToDeal *= 3f;
 				}
 
 				using ( Prediction.Off() )

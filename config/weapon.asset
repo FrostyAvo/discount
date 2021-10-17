@@ -34,6 +34,7 @@
 	CanHeadshot(bool) : "Can Headshot" : "false"
 	WindupTime(float) : "Windup Time" : "0"
 	WindupSound(string) : "Windup Sound" : ""
+	Healing(bool) : "No Damage, Heals Teammates" : "false"
 	GravityAffected(bool) : "Affected by Gravity (Projectiles)" : "false"
 	Explosive(bool) : "Explosive (Projectiles)" : "false"
 	ExplosionRadius(float) : "Explosion Radius (Projectiles)" : "100"

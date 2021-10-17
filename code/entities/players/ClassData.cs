@@ -9,7 +9,7 @@ namespace Discount
 	{
 		public readonly static string[] AllClasses = new string[]
 		{
-			"scout", "soldier", "heavy", "engineer", "sniper"
+			"scout", "soldier", "heavy", "engineer", "medic", "sniper"
 		};
 
 		public new string Name { get; set; } = "Class";
@@ -23,5 +23,7 @@ namespace Discount
 		public string RedPants { get; set; } = "";
 		public string BluePants { get; set; } = "";
 		public string Shoes { get; set; } = "";
+
+		public string[] ExtraClothes { get; set; } = new string[] { };
 	}
 }

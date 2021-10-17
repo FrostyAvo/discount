@@ -1,0 +1,37 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		Name = "Medigun"
+		ViewModelPath = resource:"weapons/rust_shotgun/v_rust_shotgun.vmdl"
+		WorldModelPath = resource:"weapons/rust_shotgun/rust_shotgun.vmdl"
+		AttackType = "1"
+		PrimaryFireSound = "medigun.shoot"
+		HoldType = "3"
+		BulletsPerShot = 4
+		PrimaryFireRate = 8.0
+		AmmoPerShot = 0
+		ClipSize = 0
+		ReserveAmmo = 0
+		AmmoPerReload = 0
+		ReloadTime = 0.0
+		ReloadSound = ""
+		Damage = 1.0
+		Knockback = 100.0
+		SpreadAngle = 5.0
+		Range = 200.0
+		DeployTime = 0.5
+		CanHeadshot = false
+		WindupTime = 0.0
+		WindupSound = ""
+		GravityAffected = false
+		Explosive = false
+		ExplosionRadius = 100.0
+		DisarmOnFirstHit = false
+		Sticky = false
+		EmitSmoke = false
+		ProjectileSpeed = 1000.0
+		ProjectileLifetime = 10.0
+		Healing = true
+	}
+}

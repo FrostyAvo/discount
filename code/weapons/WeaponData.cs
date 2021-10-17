@@ -27,6 +27,7 @@ namespace Discount.Weapons
 		public bool CanHeadshot { get; set; } = false;
 		public float WindupTime { get; set; } = 0;
 		public string WindupSound { get; set; } = "";
+		public bool Healing { get; set; } = false;
 		public bool GravityAffected { get; set; } = false;
 		public bool Explosive { get; set; } = false;
 		public float ExplosionRadius { get; set; } = 100f;

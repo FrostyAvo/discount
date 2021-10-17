@@ -2,7 +2,7 @@
 [
 	Name(string) : "Class Name" : "Class"
 	Health(int) : "Maximum Health" : "125"
-	MoveSpeed(float) : "Movement Speed" : "250"
+	MoveSpeed(float) : "Movement Speed" : "300"
 	SpecialAbility(choices) : "Special Ability" : "0" =
 	[
 		0 : "None"
@@ -15,4 +15,5 @@
 	RedPants(resource:vmdl) : "Red Pants" : ""
 	BluePants(resource:vmdl) : "Blue Pants" : ""
 	Shoes(resource:vmdl) : "Shoes" : ""
+	ExtraClothes(array:resource:vmdl) { editor = "AssetBrowse( vmdl )" } : "Extra Clothes" : ""
 ]

@@ -43,13 +43,34 @@ namespace Discount.Weapons
 					Owner.EyePos + pelletDirection * Data.Range
 					).GetEnumerator();
 
-				// Only grab the first trace result and reject traces that didn't hit
-				if ( !traceResults.MoveNext() || !traceResults.Current.Hit )
+
+
+				// Only grab the first trace result
+				if ( !traceResults.MoveNext() )
 				{
 					continue;
 				}
 
 				TraceResult traceResult = traceResults.Current;
+
+				if ( Data.Healing )
+				{
+					if ( IsServer )
+					{
+						using ( Prediction.Off() )
+						{
+							Particles healParticles = Particles.Create( "particles/water_bubble_trail.vpcf", Owner.EyePos + Owner.EyeRot * new Vector3( 40f, -12f, -5f ) );
+
+							healParticles.SetPosition( 1, traceResult.EndPos );
+						}
+					}
+				}
+
+				// Reject traces that didn't hit
+				if ( !traceResult.Hit )
+				{
+					continue;
+				}
 
 				float damageToDeal = Data.Damage;
 
@@ -72,16 +93,6 @@ namespace Discount.Weapons
 					}
 
 					hitTeamPlayer.Heal( damageToDeal );
-
-					if ( IsServer )
-					{
-						using ( Prediction.Off() )
-						{
-							Particles healParticles = Particles.Create( "particles/water_bubble_trail.vpcf", Owner.EyePos + Owner.EyeRot * new Vector3( 40f, -12f, -5f ) );
-
-							healParticles.SetPosition( 1, traceResult.EndPos );
-						}
-					}
 
 					continue;
 				}

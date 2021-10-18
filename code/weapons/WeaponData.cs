@@ -32,6 +32,7 @@ namespace Discount.Weapons
 		public bool Explosive { get; set; } = false;
 		public float ExplosionRadius { get; set; } = 100f;
 		public bool DisarmAfterFirstHit { get; set; } = false;
+		public bool DestroyOnHit { get; set; } = false;
 		public bool Sticky { get; set; } = false;
 		public bool EmitSmoke { get; set; } = false;
 		public float ProjectileSpeed { get; set; } = 1000f;

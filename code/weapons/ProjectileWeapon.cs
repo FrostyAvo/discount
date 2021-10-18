@@ -43,20 +43,17 @@ namespace Discount.Weapons
 						* Rotation.FromPitch( Rand.Float( 0f, Data.SpreadAngle ) )
 					).Forward;
 
-				Vector3 targetPosition = Owner.EyePos + traceDirection * 10000;
+				Vector3 targetPosition = Owner.EyePos + traceDirection * ( !Data.GravityAffected ? 10000 : 500 );
 
-				IEnumerator<TraceResult> traceResults = TraceBullet(
-					Owner.EyePos,
-					Owner.EyePos + traceDirection * 10000
-					).GetEnumerator();
+				IEnumerator<TraceResult> traceResults = TraceBullet( Owner.EyePos, targetPosition ).GetEnumerator();
 
 				// Only grab the first trace result and reject traces that didn't hit
-				if ( traceResults.MoveNext() && !traceResults.Current.Hit )
+				if ( traceResults.MoveNext() && traceResults.Current.Hit )
 				{
 					targetPosition = traceResults.Current.EndPos;
 				}
 
-				Vector3 projectileSpawnPosition = Owner.EyePos + Owner.EyeRot * new Vector3(30f, -15f, -10f);
+				Vector3 projectileSpawnPosition = Owner.EyePos + Owner.EyeRot * new Vector3(30f, -15f, -5f);
 				Vector3 projectileDirection = targetPosition - projectileSpawnPosition;
 
 				if ( projectileDirection != Vector3.Zero )
@@ -70,10 +67,12 @@ namespace Discount.Weapons
 				projectile.Rotation = Owner.EyeRot * Rotation.FromPitch(90f);
 
 				projectile.Damage = Data.Damage;
+				projectile.Knockback = Data.Knockback;
 				projectile.ExplosionRadius = Data.ExplosionRadius;
 				projectile.GravityAffected = Data.GravityAffected;
 				projectile.Explode = Data.Explosive;
 				projectile.DisarmAfterFirstHit = Data.DisarmAfterFirstHit;
+				projectile.DestroyOnHit = Data.DestroyOnHit;
 				projectile.Sticky = Data.Sticky;
 				projectile.EmitSmoke = Data.EmitSmoke;
 				projectile.Lifetime = Data.ProjectileLifetime;
@@ -94,9 +93,6 @@ namespace Discount.Weapons
 		protected virtual void ShootEffects()
 		{
 			Host.AssertClient();
-
-			Particles.Create( "particles/pistol_muzzleflash.vpcf", EffectEntity, "muzzle" );
-			Particles.Create( "particles/pistol_ejectbrass.vpcf", EffectEntity, "ejection_point" );
 
 			ViewModelEntity?.SetAnimBool( "fire", true );
 			CrosshairPanel?.CreateEvent( "fire" );

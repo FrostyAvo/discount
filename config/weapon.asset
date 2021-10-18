@@ -39,6 +39,7 @@
 	Explosive(bool) : "Explosive (Projectiles)" : "false"
 	ExplosionRadius(float) : "Explosion Radius (Projectiles)" : "100"
 	DisarmOnFirstHit(bool) : "Don't Damage After First Hit (Projectiles)" : "false"
+	DestroyOnHit(bool) : "Destroy On First Hit (Projectiles)" : "false"
 	Sticky(bool) : "Stick to Impact Point (Projectiles)" : "false"
 	EmitSmoke(bool) : "Emit Smoke (Projectiles)" : "false"
 	ProjectileSpeed(float) : "Projectile Speed" : "1000"

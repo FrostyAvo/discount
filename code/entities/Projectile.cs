@@ -15,6 +15,8 @@ namespace Discount
 		[Net, Predicted]
 		public float Damage { get; set; }
 		[Net, Predicted]
+		public float Knockback { get; set; }
+		[Net, Predicted]
 		public float ExplosionRadius { get; set; } = 100f;
 		[Net, Predicted]
 		public bool GravityAffected { get; set; } = true;
@@ -22,6 +24,8 @@ namespace Discount
 		public bool Explode { get; set; } = false;
 		[Net, Predicted]
 		public bool DisarmAfterFirstHit { get; set; } = false;
+		[Net, Predicted]
+		public bool DestroyOnHit { get; set; } = false;
 		[Net, Predicted]
 		public bool Sticky { get; set; } = false;
 		[Net, Predicted]
@@ -93,7 +97,7 @@ namespace Discount
 			{
 				using ( Prediction.Off() )
 				{
-					hitEnt.TakeDamage( DamageInfo.Explosion( eventData.Pos, Rotation.Forward * 1000f, Explode ? Damage * 0.5f : Damage )
+					hitEnt.TakeDamage( DamageInfo.Explosion( eventData.Pos, Rotation.Forward * Knockback, Explode ? Damage * 0.5f : Damage )
 						.WithAttacker( Owner )
 						.WithWeapon( this ) );
 				}
@@ -115,7 +119,7 @@ namespace Discount
 			}
 
 			if ( !Explode
-				|| ( DisarmAfterFirstHit && eventData.Entity.IsWorld ) )
+				&& !DestroyOnHit )
 			{
 				return;
 			}
@@ -180,7 +184,7 @@ namespace Discount
 
 				float distanceMul = 1.0f - Math.Clamp( dist / ExplosionRadius, 0.0f, 1.0f );
 				float damage = Damage * 0.5f * distanceMul;
-				float force = (1000f * distanceMul);
+				float force = (Knockback * distanceMul);
 				Vector3 forceDir = (targetPos - sourcePos);
 
 				if ( forceDir != Vector3.Zero )
@@ -202,7 +206,7 @@ namespace Discount
 		{
 			Host.AssertClient();
 
-						Sound.FromWorld( "explosion", Position );
+			Sound.FromWorld( "explosion", Position );
 			Particles.Create( "particles/explosion/barrel_explosion/explosion_barrel.vpcf", Position );
 		}
 	}

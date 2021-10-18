@@ -15,7 +15,7 @@
 		Range = 4500.0
 		CanHeadshot = false
 		WindupTime = 0.87
-		WindupSound = "drone.movement_start"
+		WindupSound = "minigun.rev_up"
 		DeployTime = 0.5
 		ClipSize = 1
 		ReserveAmmo = 200
@@ -24,5 +24,14 @@
 		AmmoPerReload = 1
 		ReloadSound = ""
 		AttackType = "0"
+		Healing = false
+		GravityAffected = false
+		Explosive = false
+		ExplosionRadius = 100.0
+		DisarmOnFirstHit = false
+		Sticky = false
+		EmitSmoke = false
+		ProjectileSpeed = 1000.0
+		ProjectileLifetime = 10.0
 	}
 }

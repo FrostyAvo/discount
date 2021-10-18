@@ -1,0 +1,38 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	data = 
+	{
+		Name = "Syringe Gun"
+		ViewModelPath = resource:"weapons/rust_smg/v_rust_smg.vmdl"
+		WorldModelPath = resource:"weapons/rust_smg/rust_smg.vmdl"
+		AttackType = "2"
+		PrimaryFireSound = "syringegun.shoot"
+		HoldType = "2"
+		BulletsPerShot = 1
+		PrimaryFireRate = 9.5
+		AmmoPerShot = 1
+		ClipSize = 40
+		ReserveAmmo = 150
+		AmmoPerReload = 40
+		ReloadTime = 1.6
+		ReloadSound = "rust_smg.clipin"
+		Damage = 10.0
+		Knockback = 10.0
+		SpreadAngle = 0.0
+		Range = 2000.0
+		DeployTime = 0.0
+		CanHeadshot = false
+		WindupTime = 0.0
+		WindupSound = ""
+		Healing = false
+		GravityAffected = true
+		Explosive = false
+		ExplosionRadius = 100.0
+		DisarmOnFirstHit = false
+		Sticky = false
+		EmitSmoke = false
+		ProjectileSpeed = 1000.0
+		ProjectileLifetime = 2.0
+		DestroyOnHit = true
+	}
+}

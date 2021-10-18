@@ -8,7 +8,7 @@
 		SpecialAbility = "0"
 		Weapons = 
 		[
-			"data/weapons/pistol.weapon",
+			"data/weapons/syringegun.weapon",
 			"data/weapons/medigun.weapon",
 			"data/weapons/bonesaw.weapon",
 		]

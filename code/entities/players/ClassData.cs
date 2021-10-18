@@ -2,7 +2,7 @@
 
 namespace Discount
 {
-	public enum ClassSpecialAbility : int { None, Buildings }
+	public enum ClassSpecialAbility : int { None, Buildings, DoubleJump }
 
 	[Library("class")]
 	public class ClassData : Asset

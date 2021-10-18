@@ -35,6 +35,11 @@ namespace Discount
 			Animator = new StandardPlayerAnimator();
 			Camera = new FirstPersonCamera();
 
+			if ( Data.SpecialAbility == ClassSpecialAbility.DoubleJump )
+			{
+				(Controller as PlayerController).MaxAirJumps = 1;
+			}
+
 			EnableAllCollisions = true;
 			EnableDrawing = true;
 			EnableHideInFirstPerson = true;

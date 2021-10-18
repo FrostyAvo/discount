@@ -7,6 +7,7 @@
 	[
 		0 : "None"
 		1 : "Buildings"
+		2 : "Double Jump"
 	]
 	Weapons(array:string) { editor = "AssetBrowse( weapon )" } : "Weapons"
 	Hat(resource:vmdl) : "Hat" : ""

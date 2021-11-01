@@ -21,6 +21,18 @@
 		ReserveAmmo = 32
 		ReloadTime = 0.6
 		AmmoPerReload = 1
-		ReloadSound = "rust_pumpshotgun.insert"
+		ReloadSound = ""
+		AttackType = "0"
+		AmmoPerShot = 1
+		Healing = false
+		GravityAffected = false
+		Explosive = false
+		ExplosionRadius = 100.0
+		DisarmOnFirstHit = false
+		DestroyOnHit = false
+		Sticky = false
+		EmitSmoke = false
+		ProjectileSpeed = 1000.0
+		ProjectileLifetime = 10.0
 	}
 }

@@ -43,8 +43,6 @@ namespace Discount.Weapons
 					Owner.EyePos + pelletDirection * Data.Range
 					).GetEnumerator();
 
-
-
 				// Only grab the first trace result
 				if ( !traceResults.MoveNext() )
 				{

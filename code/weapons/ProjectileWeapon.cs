@@ -43,7 +43,7 @@ namespace Discount.Weapons
 						* Rotation.FromPitch( Rand.Float( 0f, Data.SpreadAngle ) )
 					).Forward;
 
-				Vector3 targetPosition = Owner.EyePos + traceDirection * ( !Data.GravityAffected ? 10000 : 500 );
+				Vector3 targetPosition = Owner.EyePos + traceDirection * ( !Data.GravityAffected ? 10000 : 400 );
 
 				IEnumerator<TraceResult> traceResults = TraceBullet( Owner.EyePos, targetPosition ).GetEnumerator();
 

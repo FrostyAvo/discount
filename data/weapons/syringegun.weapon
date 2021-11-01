@@ -31,7 +31,7 @@
 		DisarmOnFirstHit = false
 		Sticky = false
 		EmitSmoke = false
-		ProjectileSpeed = 1000.0
+		ProjectileSpeed = 1400.0
 		ProjectileLifetime = 2.0
 		DestroyOnHit = true
 	}

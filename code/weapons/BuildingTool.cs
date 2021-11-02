@@ -48,6 +48,11 @@ namespace Discount.Weapons
 		{
 			base.Simulate( player );
 
+			if ( PreviewHologram == null )
+			{
+				return;
+			}
+
 			if ( Owner is TeamPlayer teamPlayer
 				&& teamPlayer.OwnsBuildingOfType<T>() )
 			{

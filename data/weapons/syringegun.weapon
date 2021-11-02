@@ -15,7 +15,7 @@
 		ReserveAmmo = 150
 		AmmoPerReload = 40
 		ReloadTime = 1.6
-		ReloadSound = "rust_smg.clipin"
+		ReloadSound = ""
 		Damage = 10.0
 		Knockback = 10.0
 		SpreadAngle = 0.0
